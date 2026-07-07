@@ -68,6 +68,32 @@ function Inner() {
               To stay within the free train-data API limit, this board auto-refreshes
               every 30 min between 8 AM and 8 PM IST. There is no manual refresh.
             </div>
+
+            <details className="mx-4 mt-4 rounded-xl border border-[#243247] bg-[#131C2E] overflow-hidden">
+              <summary className="cursor-pointer select-none px-4 py-3 text-[13px] font-medium text-[#C8D6E8] flex items-center gap-2">
+                <span aria-hidden>ℹ️</span> How this works
+              </summary>
+              <div className="px-4 pb-4 pt-1 text-[12px] leading-relaxed text-[#7C8CA5] space-y-2">
+                <p>
+                  This board predicts when the Kaggadasapura railway gate is likely to
+                  be <span className="text-[#00C896] font-medium">open</span>,{' '}
+                  <span className="text-[#F5A623] font-medium">closing soon</span>, or{' '}
+                  <span className="text-[#FF4444] font-medium">closed</span>.
+                </p>
+                <p>
+                  It reads live train departures from the two stations on either side —
+                  <span className="text-[#C8D6E8]"> Baiyyappanahalli (BYPL)</span> and
+                  <span className="text-[#C8D6E8]"> Belandur Road (BLRR)</span> — estimates
+                  when each train reaches the crossing, and assumes the gate closes about
+                  5 minutes before a train passes and reopens ~2 minutes after.
+                </p>
+                <p>
+                  Data refreshes every 30 minutes (8 AM–8 PM IST) to stay within a free API
+                  limit. These are <span className="text-[#C8D6E8]">best-effort estimates</span>,
+                  not official railway signals — always look before you cross.
+                </p>
+              </div>
+            </details>
           </>
         )}
         {tab === 'timeline' && <Timeline prediction={prediction} />}

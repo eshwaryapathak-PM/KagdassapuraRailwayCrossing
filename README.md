@@ -119,6 +119,19 @@ A muted note appears if data is more than **~45 minutes old** (a delayed refresh
 | `minConfidence` | 50% | Floor — confidence never goes below this |
 | `AVG_SPEED_KMH` | 60 km/h | Assumed train speed between station and crossing |
 
+### Tuning the gate timings
+
+The defaults (`gateCloseBeforeSeconds: 300`, `gateOpenAfterSeconds: 120`) are estimates.
+To tune them, watch the real gate for a few days and compare against the app, then edit
+`src/lib/config.ts`:
+
+- Gate closes **too early / too late** before a train → adjust `gateCloseBeforeSeconds`
+- Gate shows **reopened too soon / stays closed too long** → adjust `gateOpenAfterSeconds`
+- ETAs consistently off → tweak `distanceFromStationA` / `distanceFromStationB`, or
+  `AVG_SPEED_KMH` (in `src/lib/prediction.ts`)
+
+Commit the change; the next deploy picks it up automatically.
+
 ---
 
 ## Tech stack
