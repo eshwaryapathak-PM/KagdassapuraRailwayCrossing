@@ -11,7 +11,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-07T14:00:54Z"
+    "fetchedAt": "2026-07-07T14:16:34Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -23,17 +23,9 @@
         "scheduledDepartureTime": "19:00",
         "expectedDepartureTime": "19:00",
         "delayMinutes": 0
-      },
-      {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "scheduled",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "18:55",
-        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-07T14:00:54Z"
+    "fetchedAt": "2026-07-07T14:16:34Z"
   },
-  "generatedAt": "2026-07-07T14:00:54Z"
+  "generatedAt": "2026-07-07T14:16:34Z"
 }
