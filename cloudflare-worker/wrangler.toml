@@ -1,0 +1,11 @@
+# Optional: for deploying the Worker via the Wrangler CLI instead of the
+# dashboard. (`npm i -g wrangler`, set the secret with
+# `wrangler secret put GH_TOKEN`, then `wrangler deploy`.)
+name = "kaggadasapura-refresh"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Every 30 min, 08:00–19:30 IST (UTC times; IST = UTC+5:30).
+# 24 fires/day × 2 RailRadar calls = 48/day, under the free 50/day budget.
+[triggers]
+crons = ["30 2-13 * * *", "0 3-14 * * *"]
