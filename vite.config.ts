@@ -8,21 +8,15 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    // The service worker was caching the app shell so aggressively that mobile
+    // devices kept running an old build (which fetched data cross-site and
+    // failed with "Load failed"). `selfDestroying` ships a SW that unregisters
+    // any previously-installed service worker and clears its caches, turning the
+    // app back into a plain always-fresh website. Data reliability now comes from
+    // the same-origin fetch in src/lib/config.ts, not from a cache.
     VitePWA({
+      selfDestroying: true,
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico'],
-      manifest: {
-        name: 'Kaggadasapura Crossing Status',
-        short_name: 'Kaggadasapura',
-        description: 'Live gate status for Kaggadasapura railway crossing',
-        theme_color: '#0A0F1E',
-        background_color: '#0A0F1E',
-        display: 'standalone',
-        icons: [
-          { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },
-        ],
-      },
     }),
   ],
 })
