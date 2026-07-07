@@ -75,7 +75,7 @@ function TrainRow({ train, isFirst }: { train: ApproachingTrain; isFirst: boolea
           {formatEta(train.etaSeconds)}
         </div>
         <div className="text-[10px] text-[#3A4F6A] mt-0.5">
-          {train.direction === 'AtoB' ? '→ BLRR' : '← KJM'}
+          {train.direction === 'AtoB' ? '→ BLRR' : '← BYPL'}
         </div>
       </div>
 

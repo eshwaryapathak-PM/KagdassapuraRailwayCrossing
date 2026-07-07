@@ -39,7 +39,7 @@ export function AppHeader({ state, onRefresh, isRefreshing }: Props) {
             className="text-[10px] text-[#3A4F6A] mt-0.5 ml-5.5"
             style={{ fontFamily: "'JetBrains Mono', monospace", marginLeft: 22 }}
           >
-            KJM · 6.7 km — BLRR · 1.5 km
+            BYPL · 2.5 km — BLRR · 6.0 km
           </div>
         </div>
 

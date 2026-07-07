@@ -4,7 +4,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 **Live app:** https://YOUR_GITHUB_USERNAME.github.io/kaggadasapura-railway-crossing/
 
-> Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing sits on the same **Krishnarajapuram (KJM) ↔ Bellandur Road (BLRR)** line — here KJM is the *nearer* station (~1.9 km) and BLRR is the farther one (~5.9 km).
+> Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing is on the **Bengaluru–Salem line**, flanked by **Baiyyappanahalli (BYPL)** (~2.5 km) and **Belandur Road (BLRR)** (~6 km).
 
 ---
 
@@ -22,7 +22,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 ## How it works
 
 - A **scheduled GitHub Action** (`cron: */5 * * * *`) fires every 5 minutes — no external Cloudflare Worker needed
-- The **GitHub Action** polls the RailRadar live board for two stations (KJM and BLRR) and commits a fresh `cache.json` to the repo
+- The **GitHub Action** polls the RailRadar live board for two stations (BYPL and BLRR) and commits a fresh `cache.json` to the repo
 - The **React app** fetches that file directly from `raw.githubusercontent.com` on every load — always the latest committed version, no site rebuild needed
 - A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
 
@@ -34,7 +34,7 @@ This is how the app calculates when the gate will close and reopen.
 
 ### Step 1 — Find approaching trains
 
-- Fetches the live departure board for **KJM** (~1.9 km away) and **BLRR** (~5.9 km away)
+- Fetches the live departure board for **BYPL** (~2.5 km away) and **BLRR** (~6 km away)
 - Only considers trains departing within the next **20 minutes** from either station
 - Cancelled trains are skipped
 - If a train has a delay, the **expected departure time** is used instead of scheduled time
@@ -50,8 +50,8 @@ Transit time (seconds) = (Distance from station to crossing ÷ 60 km/h) × 3600
 ETA at crossing = Train departure time + Transit time
 ```
 
-- KJM → Crossing: 1.9 km ÷ 60 km/h = **~1.9 minutes**
-- BLRR → Crossing: 5.9 km ÷ 60 km/h = **~5.9 minutes**
+- BYPL → Crossing: 2.5 km ÷ 60 km/h = **~2.5 minutes**
+- BLRR → Crossing: 6.0 km ÷ 60 km/h = **~6.0 minutes**
 
 ### Step 3 — Calculate gate close and open times
 

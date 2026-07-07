@@ -42,7 +42,7 @@ interface Props {
 const { latitude, longitude, stationA, stationB } = KAGGADASAPURA
 
 // Approximate station coordinates
-const KJM_COORD:  [number, number] = [12.9925, 77.6699]
+const BYPL_COORD: [number, number] = [12.9905, 77.6668]
 const BLRR_COORD: [number, number] = [12.9386, 77.7086]
 
 export function CrossingMap({ prediction }: Props) {
@@ -72,8 +72,8 @@ export function CrossingMap({ prediction }: Props) {
             </Popup>
           </Marker>
 
-          {/* KJM */}
-          <Marker position={KJM_COORD} icon={makeIcon('#5E7090', 14)}>
+          {/* BYPL */}
+          <Marker position={BYPL_COORD} icon={makeIcon('#5E7090', 14)}>
             <Popup>{stationA.name} ({stationA.code})</Popup>
           </Marker>
 

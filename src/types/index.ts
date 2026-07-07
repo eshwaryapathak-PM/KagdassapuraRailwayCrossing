@@ -10,8 +10,8 @@ export interface CrossingConfig {
   name: string
   latitude: number
   longitude: number
-  stationA: StationRef      // further away  (e.g. KJM)
-  stationB: StationRef      // closer        (e.g. BLRR)
+  stationA: StationRef      // nearer side  (e.g. BYPL)
+  stationB: StationRef      // farther side (e.g. BLRR)
   distanceFromStationA: number  // km
   distanceFromStationB: number  // km
   tracks: number
@@ -61,7 +61,7 @@ export interface RouteGeometry {
 
 // ─── Prediction Engine ────────────────────────────────────────────────────────
 
-export type TrainDirection = 'AtoB' | 'BtoA'   // KJM→BLRR  or  BLRR→KJM
+export type TrainDirection = 'AtoB' | 'BtoA'   // BYPL→BLRR  or  BLRR→BYPL
 export type CrossingState  = 'OPEN' | 'CLOSED' | 'APPROACHING'
 
 export interface ApproachingTrain {
@@ -99,8 +99,8 @@ export interface StaticCacheEntry {
 }
 
 export interface StaticCache {
-  kjm: StaticCacheEntry
-  blrr: StaticCacheEntry
+  stationA: StaticCacheEntry   // Baiyyappanahalli (BYPL) board
+  stationB: StaticCacheEntry   // Belandur Road (BLRR) board
   generatedAt: string
 }
 

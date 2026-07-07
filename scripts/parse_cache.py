@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Parses RailRadar live-board responses and writes public/data/cache.json.
-Run as: python3 scripts/parse_cache.py <now_iso> <kjm_raw.json> <blrr_raw.json> <output.json>
+Run as: python3 scripts/parse_cache.py <now_iso> <bypl_raw.json> <blrr_raw.json> <output.json>
 """
 import json
 import sys
@@ -82,30 +82,30 @@ def extract_trains(raw, label):
 
 def main():
     if len(sys.argv) != 5:
-        print("Usage: parse_cache.py <now_iso> <kjm_raw.json> <blrr_raw.json> <output.json>")
+        print("Usage: parse_cache.py <now_iso> <bypl_raw.json> <blrr_raw.json> <output.json>")
         sys.exit(1)
 
-    now, kjm_path, blrr_path, out_path = sys.argv[1:5]
+    now, bypl_path, blrr_path, out_path = sys.argv[1:5]
     print(f"NOW = {now}")
 
-    kjm_raw = load(kjm_path)
+    bypl_raw = load(bypl_path)
     blrr_raw = load(blrr_path)
 
-    kjm_trains = extract_trains(kjm_raw, "KJM")
+    bypl_trains = extract_trains(bypl_raw, "BYPL")
     blrr_trains = extract_trains(blrr_raw, "BLRR")
 
-    if not kjm_trains and not blrr_trains:
+    if not bypl_trains and not blrr_trains:
         print("::warning::Both stations returned zero trains — check raw entry keys above.")
 
     cache = {
-        "kjm": {"stationCode": "KJM", "trains": kjm_trains, "fetchedAt": now},
-        "blrr": {"stationCode": "BLRR", "trains": blrr_trains, "fetchedAt": now},
+        "stationA": {"stationCode": "BYPL", "trains": bypl_trains, "fetchedAt": now},
+        "stationB": {"stationCode": "BLRR", "trains": blrr_trains, "fetchedAt": now},
         "generatedAt": now,
     }
     with open(out_path, "w") as f:
         json.dump(cache, f, indent=2)
 
-    print(f"✓ Wrote {out_path}  generatedAt={now}  KJM={len(kjm_trains)}  BLRR={len(blrr_trains)}")
+    print(f"✓ Wrote {out_path}  generatedAt={now}  BYPL={len(bypl_trains)}  BLRR={len(blrr_trains)}")
 
 
 if __name__ == "__main__":

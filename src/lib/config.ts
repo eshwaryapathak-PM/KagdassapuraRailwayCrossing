@@ -2,22 +2,24 @@ import type { CrossingConfig } from '../types'
 
 // ── Kaggadasapura Railway Crossing ───────────────────────────────────────────
 // Coordinates from Google Maps ("Kaggadasapura railway cross").
-// This crossing sits on the same KJM ↔ Bellandur Road line as the reference
-// project, so the same two stations are used — but here KJM is the NEARER
-// station and Bellandur Road is the farther one (opposite of Kadubeesanahalli).
+// The gate is on the Bengaluru–Salem line, which runs:
+//   Baiyyappanahalli (BYPL) → Belandur Road (BLRR) → Carmelaram → …
+// The crossing sits on the BYPL ↔ BLRR segment, so those are the two flanking
+// stations. (Krishnarajapuram / KJM is on a different line toward Jolarpettai
+// and its trains mostly do NOT cross this gate.)
 //
-// NOTE: distanceFromStationA/B are straight-line estimates scaled to rail
-// distance. Verify against the real rail track length if you want tighter ETAs;
-// the gate lead/buffer settings tolerate small errors.
+// NOTE: distanceFromStationA/B are estimates (~2.5 km / ~6 km). Verify against
+// the real rail track length if you want tighter ETAs; the gate lead/buffer
+// settings tolerate small errors.
 export const KAGGADASAPURA: CrossingConfig = {
   crossingId: 'kaggadasapura',
   name: 'Kaggadasapura Railway Crossing',
   latitude: 12.9836831,
   longitude: 77.679778,
-  stationA: { code: 'KJM', name: 'Krishnarajapuram' },   // nearer station (~1.9 km)
-  stationB: { code: 'BLRR', name: 'Bellandur Road' },    // farther station (~5.9 km)
-  distanceFromStationA: 1.9,
-  distanceFromStationB: 5.9,
+  stationA: { code: 'BYPL', name: 'Baiyyappanahalli' },  // nearer station (~2.5 km)
+  stationB: { code: 'BLRR', name: 'Belandur Road' },     // farther station (~6 km)
+  distanceFromStationA: 2.5,
+  distanceFromStationB: 6.0,
   tracks: 2,
   gateCloseBeforeSeconds: 300,
   gateOpenAfterSeconds: 120,
@@ -48,7 +50,7 @@ export const PREDICTION_CONFIG = {
 // ⚠️  IMPORTANT: set GH_USER to your GitHub username before deploying, or the
 // app will not be able to load live data.
 
-const GH_USER   = 'YOUR_GITHUB_USERNAME'          // ← change this to your GitHub username
+const GH_USER   = 'eshwaryapathak-PM'
 const GH_REPO   = 'kaggadasapura-railway-crossing'
 const GH_BRANCH = 'main'
 

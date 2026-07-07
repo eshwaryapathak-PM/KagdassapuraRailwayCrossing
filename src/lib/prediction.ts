@@ -1,15 +1,15 @@
 /**
  * Prediction Engine
  *
- * Given live board data from KJM and BLRR, this module:
+ * Given live board data from BYPL and BLRR, this module:
  *  1. Identifies trains that will pass the crossing
  *  2. Calculates their ETA to the crossing
  *  3. Merges overlapping gate windows (multiple trains = one continuous closure)
  *  4. Emits a PredictionResult with confidence score
  *
  * Direction convention:
- *   AtoB = KJM → Crossing → BLRR  (train seen departing KJM or arriving BLRR)
- *   BtoA = BLRR → Crossing → KJM  (train seen departing BLRR or arriving KJM)
+ *   AtoB = BYPL → Crossing → BLRR  (train seen departing BYPL or arriving BLRR)
+ *   BtoA = BLRR → Crossing → BYPL  (train seen departing BLRR or arriving BYPL)
  */
 
 import { addSeconds, differenceInSeconds, parseISO, isAfter, isBefore } from 'date-fns'
@@ -92,13 +92,13 @@ function buildApproachingTrains(
   }
 
   process(
-    cache.kjm.trains,
+    cache.stationA.trains,
     'AtoB',
     crossing.distanceFromStationA,
     crossing.stationA.name
   )
   process(
-    cache.blrr.trains,
+    cache.stationB.trains,
     'BtoA',
     crossing.distanceFromStationB,
     crossing.stationB.name

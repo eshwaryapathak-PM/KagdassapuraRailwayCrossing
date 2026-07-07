@@ -43,7 +43,7 @@ jobs:
           if [ -f public/data/cache.json ]; then
             cp public/data/cache.json dist/data/cache.json
           else
-            echo '{"kjm":{"stationCode":"KJM","trains":[],"fetchedAt":""},"blrr":{"stationCode":"BLRR","trains":[],"fetchedAt":""},"generatedAt":""}' \
+            echo '{"stationA":{"stationCode":"BYPL","trains":[],"fetchedAt":""},"stationB":{"stationCode":"BLRR","trains":[],"fetchedAt":""},"generatedAt":""}' \
               > dist/data/cache.json
           fi
 
