@@ -1,0 +1,163 @@
+# 🚦 Kaggadasapura Crossing Predictor
+
+A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing** gate (Bengaluru) will open and close — built for commuters who are tired of guessing whether to wait or take a detour.
+
+**Live app:** https://YOUR_GITHUB_USERNAME.github.io/kaggadasapura-railway-crossing/
+
+> Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing sits on the same **Krishnarajapuram (KJM) ↔ Bellandur Road (BLRR)** line — here KJM is the *nearer* station (~1.9 km) and BLRR is the farther one (~5.9 km).
+
+---
+
+## What it does
+
+- Shows whether the crossing is currently **OPEN**, **CLOSED**, or **APPROACHING**
+- Predicts the **next closure time** and **expected reopening time**
+- Lists upcoming trains with direction and ETA to the crossing
+- Merges back-to-back trains into a single continuous closure (no false open → close → open flicker)
+- Shows a **confidence score** that reflects how fresh the data is
+- Works entirely without a backend server — hosted free on GitHub Pages
+
+---
+
+## How it works
+
+- A **scheduled GitHub Action** (`cron: */5 * * * *`) fires every 5 minutes — no external Cloudflare Worker needed
+- The **GitHub Action** polls the RailRadar live board for two stations (KJM and BLRR) and commits a fresh `cache.json` to the repo
+- The **React app** fetches that file directly from `raw.githubusercontent.com` on every load — always the latest committed version, no site rebuild needed
+- A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
+
+---
+
+## Prediction logic
+
+This is how the app calculates when the gate will close and reopen.
+
+### Step 1 — Find approaching trains
+
+- Fetches the live departure board for **KJM** (~1.9 km away) and **BLRR** (~5.9 km away)
+- Only considers trains departing within the next **20 minutes** from either station
+- Cancelled trains are skipped
+- If a train has a delay, the **expected departure time** is used instead of scheduled time
+- Duplicate train numbers (can appear on both boards for double-tracking) are deduplicated
+
+### Step 2 — Calculate ETA to crossing
+
+Since RailRadar doesn't provide a train's exact position between stations, the app estimates transit time using a simple speed model:
+
+```
+Transit time (seconds) = (Distance from station to crossing ÷ 60 km/h) × 3600
+
+ETA at crossing = Train departure time + Transit time
+```
+
+- KJM → Crossing: 1.9 km ÷ 60 km/h = **~1.9 minutes**
+- BLRR → Crossing: 5.9 km ÷ 60 km/h = **~5.9 minutes**
+
+### Step 3 — Calculate gate close and open times
+
+For each approaching train:
+
+```
+Gate closes = ETA at crossing − 5 minutes  (300 seconds before arrival)
+Gate opens  = ETA at crossing + 2 minutes  (120 seconds after passing)
+```
+
+Example: train ETA at crossing is 10:30
+- Gate closes: **10:25**
+- Gate opens: **10:32**
+
+These values (`gateCloseBeforeSeconds: 300`, `gateOpenAfterSeconds: 120`) are configurable in `src/lib/config.ts`.
+
+### Step 4 — Merge overlapping closures
+
+If two trains are close together, their individual gate windows may overlap. The app merges them into a single continuous closure instead of showing two separate open/close events.
+
+```
+Train A: gate closes 10:25 → opens 10:32
+Train B: gate closes 10:31 → opens 10:38
+
+Merged:  gate closes 10:25 → opens 10:38  ✓
+```
+
+Two windows are merged if the second closure starts within **60 seconds** (the buffer) of the first reopening. The buffer is configurable (`bufferSeconds: 60` in `src/lib/config.ts`).
+
+### Step 5 — Determine crossing state
+
+After building the merged windows, the current state is set as:
+
+- **CLOSED** — if the current time falls inside an active gate window
+- **APPROACHING** — if a train's ETA is within the 5-minute gate-close lead time but the gate isn't closed yet
+- **OPEN** — no trains in any of the above windows
+
+### Step 6 — Confidence score
+
+The confidence score reflects how much to trust the prediction based on data age:
+
+```
+0–6 minutes old   → 95%  (fresh, no decay)
+7 minutes old     → 93%
+8 minutes old     → 91%
+...and so on, dropping 2% per minute
+Floor             → 50%  (never goes below this)
+```
+
+A warning banner appears if data is more than **10 minutes old**, which suggests the refresh workflow may have failed.
+
+---
+
+## Configuration values (src/lib/config.ts)
+
+| Parameter | Value | Meaning |
+|---|---|---|
+| `gateCloseBeforeSeconds` | 300 (5 min) | How early the gate closes before a train arrives |
+| `gateOpenAfterSeconds` | 120 (2 min) | How long after a train passes before gate reopens |
+| `bufferSeconds` | 60 (1 min) | Gap threshold for merging consecutive closures |
+| `approachingWindowMinutes` | 20 min | How far ahead to look for trains |
+| `confidenceDecayStartMinutes` | 6 min | When confidence starts dropping |
+| `confidenceDecayPerMinute` | 2% | How fast confidence drops per stale minute |
+| `minConfidence` | 50% | Floor — confidence never goes below this |
+| `AVG_SPEED_KMH` | 60 km/h | Assumed train speed between station and crossing |
+
+---
+
+## Tech stack
+
+| Layer | Tools |
+|---|---|
+| Frontend | React, TypeScript, Vite, Tailwind CSS |
+| Data fetching | React Query |
+| Maps | Leaflet |
+| Hosting | GitHub Pages |
+| Data refresh | Scheduled GitHub Actions (cron) + Python |
+| PWA support | vite-plugin-pwa |
+
+---
+
+## Project structure
+
+- `src/lib/prediction.ts` — the core prediction engine (pure functions, no side effects)
+- `src/lib/config.ts` — crossing details and all tuning constants
+- `src/lib/api.ts` — fetches live data from raw.githubusercontent.com
+- `src/components/` — all UI pieces (status card, train list, timeline, map)
+- `scripts/parse_cache.py` — parses the RailRadar API response into the app's data format
+- `.github/workflows/refresh-data.yml` — runs every 5 min on a schedule, fetches and commits fresh data
+- `.github/workflows/deploy.yml` — builds and publishes the site to GitHub Pages (on code push only)
+
+---
+
+## Running locally
+
+```bash
+git clone https://github.com/YOUR_GITHUB_USERNAME/kaggadasapura-railway-crossing.git
+cd kaggadasapura-railway-crossing
+npm install
+npm run dev
+```
+
+The app loads using the seed data in `public/data/cache.json`.
+
+---
+
+## Setting this up for a different crossing
+
+See **[Deployment.md](Deployment.md)** for a step-by-step guide.

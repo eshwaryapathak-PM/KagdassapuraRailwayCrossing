@@ -1,0 +1,160 @@
+name: Refresh crossing data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 5 minutes. GitHub's scheduler is best-effort and may run late under
+    # load, but it removes the need for an external Cloudflare Worker trigger.
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Validate secrets
+        env:
+          RAILRADAR_BASE: ${{ secrets.RAILRADAR_BASE }}
+          RAILRADAR_KEY:  ${{ secrets.RAILRADAR_KEY }}
+        run: |
+          echo "=== Secret check ==="
+
+          if [ -z "$RAILRADAR_BASE" ]; then
+            echo "::error::RAILRADAR_BASE is empty. Set it in Settings → Secrets → Actions."
+            exit 1
+          fi
+          if [ -z "$RAILRADAR_KEY" ]; then
+            echo "::error::RAILRADAR_KEY is empty. Set it in Settings → Secrets → Actions."
+            exit 1
+          fi
+
+          # Strip a trailing slash so URL construction never produces double-slash
+          RAILRADAR_BASE="${RAILRADAR_BASE%/}"
+
+          # Warn if base URL already ends with /v1 — we do NOT append /v1 ourselves
+          case "$RAILRADAR_BASE" in
+            */v1) echo "INFO: RAILRADAR_BASE ends with /v1 — endpoint path will be appended directly (no extra /v1 added)" ;;
+            *)    echo "INFO: RAILRADAR_BASE does NOT end with /v1 — will append /stations/{code}/live directly" ;;
+          esac
+
+          echo "RAILRADAR_BASE = $RAILRADAR_BASE"
+          echo "RAILRADAR_KEY length = ${#RAILRADAR_KEY} chars"
+
+      - name: Fetch live boards
+        env:
+          RAILRADAR_BASE: ${{ secrets.RAILRADAR_BASE }}
+          RAILRADAR_KEY:  ${{ secrets.RAILRADAR_KEY }}
+        run: |
+          set -uo pipefail
+          NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "NOW=$NOW" >> "$GITHUB_ENV"
+          echo "=== Refresh at $NOW ==="
+
+          # Strip trailing slash from base to avoid double-slash in URLs
+          RAILRADAR_BASE="${RAILRADAR_BASE%/}"
+
+          fetch_station() {
+            local code="$1"
+            local outfile="$2"
+            local errfile="${outfile%.json}_err.txt"
+
+            # ── URL construction ────────────────────────────────────────────
+            # RAILRADAR_BASE already contains everything up to (and including)
+            # the version prefix. We just append /stations/{code}/live.
+            # Examples:
+            #   https://api.railradar.in/v1       → /stations/KJM/live
+            #   https://api.railradar.in           → /stations/KJM/live
+            #   https://api.railradar.in/v1/       → /stations/KJM/live  (trailing slash stripped above)
+            local url="${RAILRADAR_BASE}/stations/${code}/live"
+            echo "--- Fetching $code ---"
+            echo "    URL: $url"
+
+            # ── Auth header ─────────────────────────────────────────────────
+            # RailRadar uses Authorization: Bearer <token>, not x-api-key.
+            # If their docs or dashboard show a different header name, change
+            # the -H line below. Common alternatives are listed as comments.
+            HTTP_CODE=$(curl -sS \
+              -o "$outfile" \
+              -w "%{http_code}" \
+              -H "Authorization: Bearer ${RAILRADAR_KEY}" \
+              -H "Accept: application/json" \
+              --connect-timeout 10 \
+              --max-time 25 \
+              --retry 2 \
+              --retry-delay 2 \
+              "$url" 2>"$errfile")
+            local curl_exit=$?
+
+            echo "    curl exit code : $curl_exit"
+            echo "    HTTP status    : $HTTP_CODE"
+
+            # ── curl transport error (DNS, timeout, SSL, etc.) ────────────
+            if [ "$curl_exit" -ne 0 ]; then
+              echo "::error::curl transport error for $code"
+              echo "    Exit code meaning: 6=DNS fail, 7=connect refused, 28=timeout, 35=SSL error"
+              echo "    curl stderr: $(cat "$errfile" 2>/dev/null)"
+              echo "{}" > "$outfile"
+              return 1
+            fi
+
+            # ── HTTP-level error ──────────────────────────────────────────
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "::error::HTTP $HTTP_CODE from RailRadar for $code"
+              echo "    Response body (first 500 chars):"
+              head -c 500 "$outfile"
+              echo ""
+              case "$HTTP_CODE" in
+                400) echo "    Hint: Bad request — check the URL path is correct" ;;
+                401) echo "    Hint: Unauthorized — token is wrong, expired, or using the wrong auth header name" ;;
+                403) echo "    Hint: Forbidden — token may lack permission or IP is not whitelisted" ;;
+                404) echo "    Hint: Not found — station code '$code' may not exist in RailRadar, or URL path is wrong" ;;
+                429) echo "    Hint: Rate limited — you've exceeded the daily quota" ;;
+                5*)  echo "    Hint: RailRadar server error — nothing you can do, will retry next cycle" ;;
+              esac
+              echo "{}" > "$outfile"
+              return 1
+            fi
+
+            echo "    ✓ $code fetched OK"
+            echo "    Response preview (first 200 chars):"
+            head -c 200 "$outfile"
+            echo ""
+            return 0
+          }
+
+          KJM_OK=1
+          BLRR_OK=1
+          fetch_station "KJM"  /tmp/kjm_raw.json  || KJM_OK=0
+          fetch_station "BLRR" /tmp/blrr_raw.json || BLRR_OK=0
+
+          if [ $KJM_OK -eq 0 ] && [ $BLRR_OK -eq 0 ]; then
+            echo "::error::Both station fetches failed. Keeping last good cache.json untouched."
+            exit 1
+          fi
+
+      - name: Parse and write cache.json
+        run: |
+          mkdir -p public/data
+          python3 scripts/parse_cache.py "$NOW" /tmp/kjm_raw.json /tmp/blrr_raw.json public/data/cache.json
+
+      - name: Commit cache.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/cache.json
+          if git diff --cached --quiet; then
+            echo "No changes — data identical to last commit."
+          else
+            git commit -m "chore: refresh crossing data [skip ci]"
+            git push origin main
+            echo "✓ Pushed updated cache.json"
+          fi

@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_RAILRADAR_BASE: ${{ secrets.RAILRADAR_BASE }}
+          VITE_RAILRADAR_KEY: ${{ secrets.RAILRADAR_KEY }}
+
+      - name: Ensure cache exists
+        run: |
+          mkdir -p dist/data
+          if [ -f public/data/cache.json ]; then
+            cp public/data/cache.json dist/data/cache.json
+          else
+            echo '{"kjm":{"stationCode":"KJM","trains":[],"fetchedAt":""},"blrr":{"stationCode":"BLRR","trains":[],"fetchedAt":""},"generatedAt":""}' \
+              > dist/data/cache.json
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

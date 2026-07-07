@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --night: #0A0F1E;
+  --card: #1A2332;
+  --card2: #0F1624;
+  --open: #00C896;
+  --closed: #FF4444;
+  --warn: #F5A623;
+  --muted: #5E7090;
+  --text: #C8D6E8;
+  --dim: #3A4F6A;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--night);
+  color: var(--text);
+  font-family: var(--sans);
+  margin: 0;
+  min-height: 100vh;
+}
+
+@keyframes pulse-lamp {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px rgba(0,200,150,0.2); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 5px rgba(0,200,150,0.05); }
+}
+@keyframes pulse-lamp-closed {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px rgba(255,68,68,0.2); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 5px rgba(255,68,68,0.05); }
+}
+@keyframes pulse-lamp-warn {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px rgba(245,166,35,0.25); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 5px rgba(245,166,35,0.05); }
+}
+
+.lamp-open  { animation: pulse-lamp 2s ease-in-out infinite; }
+.lamp-closed { animation: pulse-lamp-closed 1s ease-in-out infinite; }
+.lamp-warn  { animation: pulse-lamp-warn 0.8s ease-in-out infinite; }
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap');
