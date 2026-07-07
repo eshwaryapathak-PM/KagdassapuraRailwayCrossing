@@ -164,7 +164,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes — data identical to last commit."
           else
-            git commit -m "chore: refresh crossing data [skip ci]"
+            # NOTE: no [skip ci] — we WANT this push to trigger deploy.yml so the
+            # same-origin cache.json served by GitHub Pages stays fresh.
+            git commit -m "chore: refresh crossing data"
             git push origin main
-            echo "✓ Pushed updated cache.json"
+            echo "✓ Pushed updated cache.json (will trigger a Pages redeploy)"
           fi

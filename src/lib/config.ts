@@ -37,22 +37,17 @@ export const PREDICTION_CONFIG = {
 
 // ── Where to fetch cache.json from ───────────────────────────────────────────
 //
-// PROBLEM: cache.json is updated by GitHub Actions every 5 min (committed to
-// the repo), but the GitHub Pages *site* is only rebuilt when deploy.yml runs.
-// Fetching from the Pages URL (BASE_URL/data/cache.json) returns whatever was
-// baked into the build at deploy time — it goes stale the moment new data
-// lands in the repo without a fresh deploy.
+// We fetch from the app's OWN origin (GitHub Pages), same-origin. This is far
+// more reliable on mobile networks than a cross-site request to
+// raw.githubusercontent.com, which iCloud Private Relay / content blockers /
+// flaky mobile connections frequently drop (causing "Load failed").
 //
-// SOLUTION: fetch directly from raw.githubusercontent.com, which always serves
-// the latest committed file instantly — no rebuild or redeploy ever needed
-// for data updates.
+// Freshness: the `refresh-data.yml` workflow commits a new cache.json every
+// 30 min and, because its commit is NOT marked [skip ci], that push triggers
+// `deploy.yml`, which republishes the site — so this same-origin copy is kept
+// current (about a minute behind each refresh). A `?t=` cache-buster + no-store
+// fetch avoids any stale service-worker/CDN copy.
 //
-// ⚠️  IMPORTANT: set GH_USER to your GitHub username before deploying, or the
-// app will not be able to load live data.
+// import.meta.env.BASE_URL === the Vite `base` ('/KagdassapuraRailwayCrossing/').
 
-const GH_USER   = 'eshwaryapathak-PM'
-const GH_REPO   = 'KagdassapuraRailwayCrossing'
-const GH_BRANCH = 'main'
-
-export const CACHE_JSON_URL =
-  `https://raw.githubusercontent.com/${GH_USER}/${GH_REPO}/${GH_BRANCH}/public/data/cache.json`
+export const CACHE_JSON_URL = `${import.meta.env.BASE_URL}data/cache.json`
