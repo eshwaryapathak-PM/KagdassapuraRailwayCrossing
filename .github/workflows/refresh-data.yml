@@ -3,9 +3,12 @@ name: Refresh crossing data
 on:
   workflow_dispatch:
   schedule:
-    # Every 5 minutes. GitHub's scheduler is best-effort and may run late under
+    # Every 10 minutes. GitHub's scheduler is best-effort and may run late under
     # load, but it removes the need for an external Cloudflare Worker trigger.
-    - cron: '*/5 * * * *'
+    # Quota math: 2 station calls × 144 runs/day = 288 requests/day, just under
+    # RailRadar's free-tier limit of 300/day. Do NOT lower this below 10 min on
+    # the free tier or you'll exhaust the quota mid-day.
+    - cron: '*/10 * * * *'
 
 permissions:
   contents: write

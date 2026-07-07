@@ -52,7 +52,7 @@ function Inner() {
               style={{ fontFamily: "'JetBrains Mono', monospace" }}>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full lamp-open" style={{ background: '#00C896' }} />
-                Live · Refreshes every 5 min
+                Live · Refreshes every 10 min
               </div>
               <div>
                 Updated: {prediction.lastUpdated.toLocaleTimeString('en-IN', {

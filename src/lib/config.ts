@@ -51,7 +51,7 @@ export const PREDICTION_CONFIG = {
 // app will not be able to load live data.
 
 const GH_USER   = 'eshwaryapathak-PM'
-const GH_REPO   = 'kaggadasapura-railway-crossing'
+const GH_REPO   = 'KagdassapuraRailwayCrossing'
 const GH_BRANCH = 'main'
 
 export const CACHE_JSON_URL =

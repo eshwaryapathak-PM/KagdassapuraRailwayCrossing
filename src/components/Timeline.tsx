@@ -17,7 +17,7 @@ export function Timeline({ prediction }: Props) {
         No upcoming closures predicted in the next 20 minutes.
         <br />
         <span className="text-[11px] text-[#3A4F6A] block mt-1">
-          Data refreshes every 5 minutes
+          Data refreshes every 10 minutes
         </span>
       </div>
     )

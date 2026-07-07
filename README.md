@@ -2,7 +2,7 @@
 
 A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing** gate (Bengaluru) will open and close — built for commuters who are tired of guessing whether to wait or take a detour.
 
-**Live app:** https://YOUR_GITHUB_USERNAME.github.io/kaggadasapura-railway-crossing/
+**Live app:** https://eshwaryapathak-pm.github.io/KagdassapuraRailwayCrossing/
 
 > Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing is on the **Bengaluru–Salem line**, flanked by **Baiyyappanahalli (BYPL)** (~2.5 km) and **Belandur Road (BLRR)** (~6 km).
 
@@ -21,7 +21,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 ## How it works
 
-- A **scheduled GitHub Action** (`cron: */5 * * * *`) fires every 5 minutes — no external Cloudflare Worker needed
+- A **scheduled GitHub Action** (`cron: */10 * * * *`) fires every 10 minutes — no external Cloudflare Worker needed (kept at 10 min to stay under RailRadar's free 300 req/day quota)
 - The **GitHub Action** polls the RailRadar live board for two stations (BYPL and BLRR) and commits a fresh `cache.json` to the repo
 - The **React app** fetches that file directly from `raw.githubusercontent.com` on every load — always the latest committed version, no site rebuild needed
 - A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
@@ -140,7 +140,7 @@ A warning banner appears if data is more than **10 minutes old**, which suggests
 - `src/lib/api.ts` — fetches live data from raw.githubusercontent.com
 - `src/components/` — all UI pieces (status card, train list, timeline, map)
 - `scripts/parse_cache.py` — parses the RailRadar API response into the app's data format
-- `.github/workflows/refresh-data.yml` — runs every 5 min on a schedule, fetches and commits fresh data
+- `.github/workflows/refresh-data.yml` — runs every 10 min on a schedule, fetches and commits fresh data
 - `.github/workflows/deploy.yml` — builds and publishes the site to GitHub Pages (on code push only)
 
 ---
@@ -148,8 +148,8 @@ A warning banner appears if data is more than **10 minutes old**, which suggests
 ## Running locally
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/kaggadasapura-railway-crossing.git
-cd kaggadasapura-railway-crossing
+git clone https://github.com/eshwaryapathak-PM/KagdassapuraRailwayCrossing.git
+cd KagdassapuraRailwayCrossing
 npm install
 npm run dev
 ```
