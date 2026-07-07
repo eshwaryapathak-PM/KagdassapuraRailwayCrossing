@@ -11,21 +11,12 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-07T14:18:00Z"
+    "fetchedAt": "2026-07-07T14:28:41Z"
   },
   "stationB": {
     "stationCode": "BLRR",
-    "trains": [
-      {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "scheduled",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "19:00",
-        "delayMinutes": 0
-      }
-    ],
-    "fetchedAt": "2026-07-07T14:18:00Z"
+    "trains": [],
+    "fetchedAt": "2026-07-07T14:28:41Z"
   },
-  "generatedAt": "2026-07-07T14:18:00Z"
+  "generatedAt": "2026-07-07T14:28:41Z"
 }
