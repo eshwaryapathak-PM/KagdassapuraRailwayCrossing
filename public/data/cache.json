@@ -1,13 +1,135 @@
 {
   "stationA": {
     "stationCode": "BYPL",
-    "trains": [],
-    "fetchedAt": ""
+    "trains": [
+      {
+        "trainNo": "66592",
+        "trainName": "Kolar - Bengaluru Cantt. MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "16:48",
+        "expectedDepartureTime": "16:48",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66549",
+        "trainName": "Jolarpettai - KSR Bengaluru MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "17:41",
+        "expectedDepartureTime": "17:41",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16520",
+        "trainName": "Jolarpettai MEMU Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "17:50",
+        "expectedDepartureTime": "17:50",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66587",
+        "trainName": "Bengaluru Cantt. - Kolar MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:05",
+        "expectedDepartureTime": "18:05",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66582",
+        "trainName": "Bangarapet - KSR Bengaluru MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:28",
+        "expectedDepartureTime": "18:28",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66556",
+        "trainName": "KSR Bengaluru - Marikuppam MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:35",
+        "expectedDepartureTime": "18:35",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:45",
+        "expectedDepartureTime": "18:45",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66560",
+        "trainName": "Anantapur - KSR Bengaluru MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "19:20",
+        "expectedDepartureTime": "19:20",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "19:40",
+        "expectedDepartureTime": "19:40",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16219",
+        "trainName": "Tirupati Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "20:41",
+        "expectedDepartureTime": "20:41",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "06532",
+        "trainName": "BNC MEX EMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "20:12",
+        "expectedDepartureTime": "20:12",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66520",
+        "trainName": "KSR Bengaluru - Marikuppam MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "21:10",
+        "expectedDepartureTime": "21:10",
+        "delayMinutes": 0
+      }
+    ],
+    "fetchedAt": "2026-07-07T11:58:25Z"
   },
   "stationB": {
     "stationCode": "BLRR",
-    "trains": [],
-    "fetchedAt": ""
+    "trains": [
+      {
+        "trainNo": "66586",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:19",
+        "expectedDepartureTime": "18:19",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:55",
+        "expectedDepartureTime": "18:55",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "19:00",
+        "expectedDepartureTime": "19:00",
+        "delayMinutes": 0
+      }
+    ],
+    "fetchedAt": "2026-07-07T11:58:25Z"
   },
-  "generatedAt": ""
+  "generatedAt": "2026-07-07T11:58:25Z"
 }
