@@ -94,8 +94,31 @@ def main():
     bypl_trains = extract_trains(bypl_raw, "BYPL")
     blrr_trains = extract_trains(blrr_raw, "BLRR")
 
+    # ── Filter junction noise from station A (BYPL) ──────────────────────────
+    # BYPL is a junction: its live board also lists Kolar / Bangarpet /
+    # Jolarpettai / Whitefield-line trains that never cross the Kaggadasapura
+    # gate. A BYPL train is a real gate-crosser only if it runs the Salem-line
+    # segment toward BLRR. We detect that with NO extra API calls:
+    #   1. the train number also appears on the BLRR board (same Salem-line
+    #      train seen at both stations), OR
+    #   2. it's in a small static allowlist of trains that RailRadar's
+    #      /v1/trains/between/BYPL/BLRR endpoint confirms run the segment.
+    # BLRR is a single-line (non-junction) station, so its board is kept as-is.
+    STATIC_CROSSING_TRAINS = {"16529", "16530", "66583", "66584"}
+    blrr_numbers = {t["trainNo"] for t in blrr_trains}
+    allowed = blrr_numbers | STATIC_CROSSING_TRAINS
+
+    kept = [t for t in bypl_trains if t["trainNo"] in allowed]
+    dropped = [t for t in bypl_trains if t["trainNo"] not in allowed]
+    print(f"[BYPL] gate filter: kept {len(kept)}/{len(bypl_trains)} crossing trains; "
+          f"dropped {len(dropped)} junction-line trains")
+    if dropped:
+        print("[BYPL] dropped (do not cross gate): "
+              + ", ".join(f"{t['trainNo']} {t['trainName']}" for t in dropped[:12]))
+    bypl_trains = kept
+
     if not bypl_trains and not blrr_trains:
-        print("::warning::Both stations returned zero trains — check raw entry keys above.")
+        print("::warning::Both stations returned zero crossing trains — check raw entry keys above.")
 
     cache = {
         "stationA": {"stationCode": "BYPL", "trains": bypl_trains, "fetchedAt": now},

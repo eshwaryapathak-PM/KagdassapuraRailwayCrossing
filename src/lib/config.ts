@@ -8,18 +8,18 @@ import type { CrossingConfig } from '../types'
 // stations. (Krishnarajapuram / KJM is on a different line toward Jolarpettai
 // and its trains mostly do NOT cross this gate.)
 //
-// NOTE: distanceFromStationA/B are estimates (~2.5 km / ~6 km). Verify against
-// the real rail track length if you want tighter ETAs; the gate lead/buffer
-// settings tolerate small errors.
+// NOTE: RailRadar reports the BYPL↔BLRR track segment as 10.3 km. The gate sits
+// ~2.5 km south of BYPL, so ~7.8 km north of BLRR. These tolerate small errors
+// thanks to the gate lead/buffer settings.
 export const KAGGADASAPURA: CrossingConfig = {
   crossingId: 'kaggadasapura',
   name: 'Kaggadasapura Railway Crossing',
   latitude: 12.9836831,
   longitude: 77.679778,
   stationA: { code: 'BYPL', name: 'Baiyyappanahalli' },  // nearer station (~2.5 km)
-  stationB: { code: 'BLRR', name: 'Belandur Road' },     // farther station (~6 km)
+  stationB: { code: 'BLRR', name: 'Belandur Road' },     // farther station (~7.8 km)
   distanceFromStationA: 2.5,
-  distanceFromStationB: 6.0,
+  distanceFromStationB: 7.8,
   tracks: 2,
   gateCloseBeforeSeconds: 300,
   gateOpenAfterSeconds: 120,

@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# stray duplicate clone created by GitHub Desktop — not part of the project
+KagdassapuraRailwayCrossing/

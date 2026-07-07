@@ -4,7 +4,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 **Live app:** https://eshwaryapathak-pm.github.io/KagdassapuraRailwayCrossing/
 
-> Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing is on the **Bengaluru–Salem line**, flanked by **Baiyyappanahalli (BYPL)** (~2.5 km) and **Belandur Road (BLRR)** (~6 km).
+> Adapted from [BxtGeek/railway-crossing-data](https://github.com/BxtGeek/railway-crossing-data) using the same technique. This crossing is on the **Bengaluru–Salem line**, flanked by **Baiyyappanahalli (BYPL)** (~2.5 km) and **Belandur Road (BLRR)** (~7.8 km).
 
 ---
 
@@ -34,7 +34,8 @@ This is how the app calculates when the gate will close and reopen.
 
 ### Step 1 — Find approaching trains
 
-- Fetches the live departure board for **BYPL** (~2.5 km away) and **BLRR** (~6 km away)
+- Fetches the live departure board for **BYPL** (~2.5 km away) and **BLRR** (~7.8 km away)
+- **Junction filter:** BYPL is a junction, so its board also lists Kolar / Bangarpet / Jolarpettai-line trains that never cross this gate. A BYPL train is kept only if it also appears on the (single-line) BLRR board or is in a small allowlist confirmed by RailRadar's `/trains/between/BYPL/BLRR` endpoint. This removes false closures. (See `scripts/parse_cache.py`.)
 - Only considers trains departing within the next **20 minutes** from either station
 - Cancelled trains are skipped
 - If a train has a delay, the **expected departure time** is used instead of scheduled time
@@ -51,7 +52,7 @@ ETA at crossing = Train departure time + Transit time
 ```
 
 - BYPL → Crossing: 2.5 km ÷ 60 km/h = **~2.5 minutes**
-- BLRR → Crossing: 6.0 km ÷ 60 km/h = **~6.0 minutes**
+- BLRR → Crossing: 7.8 km ÷ 60 km/h = **~7.8 minutes**
 
 ### Step 3 — Calculate gate close and open times
 
