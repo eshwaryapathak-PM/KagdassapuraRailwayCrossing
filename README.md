@@ -21,7 +21,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 ## How it works
 
-- A **scheduled GitHub Action** refreshes every **30 minutes, only 8 AM–8 PM IST** — no external Cloudflare Worker needed. Each run makes 2 API calls (BYPL + BLRR); 24 runs/day × 2 = **48 calls/day**, kept under the free-tier budget of **50/day**.
+- A **free external scheduler** (cron-job.org) pokes the refresh workflow every **30 minutes, 8 AM–8 PM IST** via the GitHub API. (GitHub's own `schedule:` cron is unreliable, so it isn't used.) Each run makes 2 API calls (BYPL + BLRR); 24 runs/day × 2 = **48 calls/day**, under the free-tier budget of **50/day**.
 - The **GitHub Action** polls the RailRadar live board for two stations (BYPL and BLRR) and commits a fresh `cache.json` to the repo
 - Each refresh commit also triggers a redeploy, so the **React app** fetches `cache.json` from its **own GitHub Pages origin** (same-origin) — reliable on mobile networks (no cross-site request that Private Relay / content blockers drop)
 - A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
@@ -141,7 +141,7 @@ A muted note appears if data is more than **~45 minutes old** (a delayed refresh
 - `src/lib/api.ts` — fetches `cache.json` from the app's own origin (same-origin)
 - `src/components/` — all UI pieces (status card, train list, timeline, map)
 - `scripts/parse_cache.py` — parses the RailRadar API response into the app's data format
-- `.github/workflows/refresh-data.yml` — runs every 30 min (8 AM–8 PM IST) on a schedule, fetches and commits fresh data
+- `.github/workflows/refresh-data.yml` — triggered every 30 min (8 AM–8 PM IST) by an external scheduler via the GitHub API; fetches and commits fresh data
 - `.github/workflows/deploy.yml` — builds and publishes the site to GitHub Pages (on code push only)
 
 ---
