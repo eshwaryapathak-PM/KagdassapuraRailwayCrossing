@@ -28,10 +28,10 @@ export const KAGGADASAPURA: CrossingConfig = {
 
 export const PREDICTION_CONFIG = {
   approachingWindowMinutes: 20,
-  cacheMinutes: 7,
-  refreshIntervalMinutes: 5,
-  confidenceDecayStartMinutes: 6,
-  confidenceDecayPerMinute: 2,
+  cacheMinutes: 35,             // data is "fresh" within one 30-min refresh cycle
+  refreshIntervalMinutes: 5,    // how often the browser re-reads the committed cache.json (free, no API call)
+  confidenceDecayStartMinutes: 35,  // stay at full confidence within a normal 30-min cycle
+  confidenceDecayPerMinute: 1.5,
   minConfidence: 50,
 }
 

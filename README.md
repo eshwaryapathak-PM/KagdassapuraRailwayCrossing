@@ -21,7 +21,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 ## How it works
 
-- A **scheduled GitHub Action** (`cron: */10 * * * *`) fires every 10 minutes — no external Cloudflare Worker needed (kept at 10 min to stay under RailRadar's free 300 req/day quota)
+- A **scheduled GitHub Action** refreshes every **30 minutes, only 8 AM–8 PM IST** — no external Cloudflare Worker needed. Each run makes 2 API calls (BYPL + BLRR); 24 runs/day × 2 = **48 calls/day**, kept under the free-tier budget of **50/day**.
 - The **GitHub Action** polls the RailRadar live board for two stations (BYPL and BLRR) and commits a fresh `cache.json` to the repo
 - The **React app** fetches that file directly from `raw.githubusercontent.com` on every load — always the latest committed version, no site rebuild needed
 - A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
@@ -102,7 +102,7 @@ The confidence score reflects how much to trust the prediction based on data age
 Floor             → 50%  (never goes below this)
 ```
 
-A warning banner appears if data is more than **10 minutes old**, which suggests the refresh workflow may have failed.
+A muted note appears if data is more than **~45 minutes old** (a delayed refresh in-window, or the paused 8 PM–8 AM overnight window).
 
 ---
 
@@ -141,7 +141,7 @@ A warning banner appears if data is more than **10 minutes old**, which suggests
 - `src/lib/api.ts` — fetches live data from raw.githubusercontent.com
 - `src/components/` — all UI pieces (status card, train list, timeline, map)
 - `scripts/parse_cache.py` — parses the RailRadar API response into the app's data format
-- `.github/workflows/refresh-data.yml` — runs every 10 min on a schedule, fetches and commits fresh data
+- `.github/workflows/refresh-data.yml` — runs every 30 min (8 AM–8 PM IST) on a schedule, fetches and commits fresh data
 - `.github/workflows/deploy.yml` — builds and publishes the site to GitHub Pages (on code push only)
 
 ---

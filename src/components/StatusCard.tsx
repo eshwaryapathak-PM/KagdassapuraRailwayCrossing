@@ -18,6 +18,16 @@ export function StatusCard({ prediction }: Props) {
 
   const nextWindow  = currentWindow ?? upcomingWindows[0] ?? null
 
+  // Service window is 08:00–20:00 IST; data refreshes every 30 min in-window.
+  // Warn only when data is clearly stale (>45 min), and word it based on whether
+  // we're inside service hours (delayed refresh) or outside (updates paused).
+  const istHour = Number(
+    new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false })
+      .format(new Date())
+  )
+  const inServiceWindow = istHour >= 8 && istHour < 20
+  const isStale = dataAgeSeconds > 2700
+
   let subText = 'No trains within 20 min window'
   if (isClosed && currentWindow) {
     subText = `Reopens at ${formatTime(currentWindow.openAt)}`
@@ -83,12 +93,16 @@ export function StatusCard({ prediction }: Props) {
         />
       </div>
 
-      {/* Data age warning — only show if data is >15 min old (refresh runs every 10 min) */}
-      {dataAgeSeconds > 600 && (
-        <div className="mt-3 text-[10px] text-[#F5A623] flex flex-col gap-1.5">
-          <div className="flex items-center gap-1.5">
-            <span>⚠</span>
-            <span>Data {Math.floor(dataAgeSeconds / 60)} min old — refresh action may have failed</span>
+      {/* Staleness note — refresh runs every 30 min inside the 8AM–8PM IST window */}
+      {isStale && (
+        <div className="mt-3 text-[10px] flex flex-col gap-1.5">
+          <div className="flex items-center gap-1.5" style={{ color: inServiceWindow ? '#F5A623' : '#5E7090' }}>
+            <span>{inServiceWindow ? '⚠' : '🌙'}</span>
+            <span>
+              {inServiceWindow
+                ? `Data ${Math.floor(dataAgeSeconds / 60)} min old — a scheduled refresh may have been delayed`
+                : 'Live updates pause 8 PM–8 AM IST — showing the last available data'}
+            </span>
           </div>
           <div className="text-[#5E7090] pl-3.5">
             Last updated: {prediction.lastUpdated.toLocaleString('en-IN', {

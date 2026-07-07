@@ -1,14 +1,21 @@
 name: Refresh crossing data
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # kept for manual/admin runs; the site has no refresh button
   schedule:
-    # Every 10 minutes. GitHub's scheduler is best-effort and may run late under
-    # load, but it removes the need for an external Cloudflare Worker trigger.
-    # Quota math: 2 station calls × 144 runs/day = 288 requests/day, just under
-    # RailRadar's free-tier limit of 300/day. Do NOT lower this below 10 min on
-    # the free tier or you'll exhaust the quota mid-day.
-    - cron: '*/10 * * * *'
+    # ── Free-tier budget: stay UNDER 50 RailRadar calls/day ───────────────────
+    # Each run makes 2 calls (BYPL + BLRR). We refresh every 30 min during the
+    # daytime window only (≈08:00–19:30 IST), which is 24 runs × 2 = 48 calls/day.
+    #
+    # Why 30 min, not 15: 15 min over a 12-hour window = 48 runs × 2 = 96 calls,
+    # which blows the 50/day budget. 30 min is the tightest cadence that fits.
+    #
+    # GitHub cron is in UTC. IST = UTC+5:30, so:
+    #   :30 of UTC hours 02–13  → IST 08:00, 09:00 … 19:00
+    #   :00 of UTC hours 03–14  → IST 08:30, 09:30 … 19:30
+    # Together = every 30 min from 08:00 to 19:30 IST. (Best-effort; may run late.)
+    - cron: '30 2-13 * * *'
+    - cron: '0 3-14 * * *'
 
 permissions:
   contents: write

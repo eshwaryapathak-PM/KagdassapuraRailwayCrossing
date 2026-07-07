@@ -42,7 +42,7 @@ function Inner() {
 
   return (
     <div className="max-w-[420px] mx-auto min-h-screen relative">
-      <AppHeader state={prediction.state} onRefresh={() => refetch()} isRefreshing={isLoading} />
+      <AppHeader state={prediction.state} />
       <main className="pb-24">
         {tab === 'status' && (
           <>
@@ -52,7 +52,7 @@ function Inner() {
               style={{ fontFamily: "'JetBrains Mono', monospace" }}>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full lamp-open" style={{ background: '#00C896' }} />
-                Live · Refreshes every 10 min
+                Auto-refresh · 30 min · 8AM–8PM IST
               </div>
               <div>
                 Updated: {prediction.lastUpdated.toLocaleTimeString('en-IN', {
@@ -62,6 +62,11 @@ function Inner() {
                   hour12: false
                 })} IST
               </div>
+            </div>
+            <div className="mx-4 mt-2 text-[10px] leading-relaxed text-[#3A4F6A]"
+              style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+              To stay within the free train-data API limit, this board auto-refreshes
+              every 30 min between 8 AM and 8 PM IST. There is no manual refresh.
             </div>
           </>
         )}
