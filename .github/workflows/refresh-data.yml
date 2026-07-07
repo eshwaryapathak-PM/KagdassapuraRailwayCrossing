@@ -13,12 +13,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # push the updated cache.json
+  pages: write      # publish the site
+  id-token: write   # required by actions/deploy-pages
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 10
+    # Needed by actions/deploy-pages, and serialises Pages deployments.
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
 
     steps:
       - name: Checkout
@@ -159,9 +168,38 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes — data identical to last commit."
           else
-            # NOTE: no [skip ci] — we WANT this push to trigger deploy.yml so the
-            # same-origin cache.json served by GitHub Pages stays fresh.
             git commit -m "chore: refresh crossing data"
             git push origin main
-            echo "✓ Pushed updated cache.json (will trigger a Pages redeploy)"
+            echo "✓ Committed updated cache.json"
           fi
+
+      # ── Build & deploy the site IN THIS RUN ─────────────────────────────────
+      # We cannot rely on deploy.yml running after the commit above: a push made
+      # with the built-in GITHUB_TOKEN does not trigger other workflows (GitHub
+      # anti-recursion). So we build and publish Pages right here, keeping the
+      # same-origin cache.json the site serves in sync on every refresh.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Ensure cache exists in build output
+        run: |
+          mkdir -p dist/data
+          cp public/data/cache.json dist/data/cache.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

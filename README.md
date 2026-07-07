@@ -23,7 +23,7 @@ A mobile-first web app that predicts when the **Kaggadasapura Railway Crossing**
 
 - A **free external scheduler** (cron-job.org) pokes the refresh workflow every **30 minutes, 8 AM–8 PM IST** via the GitHub API. (GitHub's own `schedule:` cron is unreliable, so it isn't used.) Each run makes 2 API calls (BYPL + BLRR); 24 runs/day × 2 = **48 calls/day**, under the free-tier budget of **50/day**.
 - The **GitHub Action** polls the RailRadar live board for two stations (BYPL and BLRR) and commits a fresh `cache.json` to the repo
-- Each refresh commit also triggers a redeploy, so the **React app** fetches `cache.json` from its **own GitHub Pages origin** (same-origin) — reliable on mobile networks (no cross-site request that Private Relay / content blockers drop)
+- The **same refresh run then rebuilds and redeploys** the Pages site (a GITHUB_TOKEN commit can't trigger a separate deploy workflow), so the **React app** fetches `cache.json` from its **own GitHub Pages origin** (same-origin) — reliable on mobile networks (no cross-site request that Private Relay / ISP blocks drop)
 - A **prediction engine** runs entirely in the browser and turns raw departure times into gate open/close predictions
 
 ---
