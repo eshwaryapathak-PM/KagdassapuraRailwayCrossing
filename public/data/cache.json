@@ -19,19 +19,11 @@
         "delayMinutes": 2
       }
     ],
-    "fetchedAt": "2026-07-08T10:30:46Z"
+    "fetchedAt": "2026-07-08T11:00:49Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
-      {
-        "trainNo": "66564",
-        "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "16:01",
-        "expectedDepartureTime": "2026-07-08T16:21:00+05:30",
-        "delayMinutes": 20
-      },
       {
         "trainNo": "16211",
         "trainName": "Salem Express",
@@ -65,7 +57,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-08T10:30:46Z"
+    "fetchedAt": "2026-07-08T11:00:49Z"
   },
-  "generatedAt": "2026-07-08T10:30:46Z"
+  "generatedAt": "2026-07-08T11:00:49Z"
 }
