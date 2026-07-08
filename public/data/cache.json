@@ -5,7 +5,7 @@
       {
         "trainNo": "66583",
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "scheduled",
+        "status": "not-started",
         "scheduledDepartureTime": "18:45",
         "expectedDepartureTime": "2026-07-08T18:45:00+05:30",
         "delayMinutes": 0
@@ -13,13 +13,13 @@
       {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
-        "status": "scheduled",
+        "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-08T19:40:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-08T20:26:00+05:30",
+        "delayMinutes": 46
       }
     ],
-    "fetchedAt": "2026-07-08T12:00:47Z"
+    "fetchedAt": "2026-07-08T12:30:46Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -27,15 +27,15 @@
       {
         "trainNo": "66586",
         "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "scheduled",
+        "status": "upcoming",
         "scheduledDepartureTime": "18:19",
-        "expectedDepartureTime": "2026-07-08T18:19:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-08T18:32:00+05:30",
+        "delayMinutes": 13
       },
       {
         "trainNo": "66583",
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "scheduled",
+        "status": "not-started",
         "scheduledDepartureTime": "18:55",
         "expectedDepartureTime": "2026-07-08T18:55:00+05:30",
         "delayMinutes": 0
@@ -43,13 +43,13 @@
       {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
-        "status": "scheduled",
+        "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-08T19:00:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-08T19:46:00+05:30",
+        "delayMinutes": 46
       }
     ],
-    "fetchedAt": "2026-07-08T12:00:47Z"
+    "fetchedAt": "2026-07-08T12:30:46Z"
   },
-  "generatedAt": "2026-07-08T12:00:47Z"
+  "generatedAt": "2026-07-08T12:30:46Z"
 }
