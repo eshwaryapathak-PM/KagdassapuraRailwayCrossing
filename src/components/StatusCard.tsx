@@ -32,6 +32,22 @@ export function StatusCard({ prediction }: Props) {
   // for a second train arriving back-to-back or after a gap.
   const moreClosures = (isClosed ? upcomingWindows : upcomingWindows.slice(1)).slice(0, 2)
 
+  // Interleave the OPEN windows between upcoming closures, so people can see how
+  // long the gate stays open before it shuts again.
+  type Seg =
+    | { kind: 'open'; from: Date; to: Date; mins: number }
+    | { kind: 'closed'; close: Date; open: Date; trains: number }
+  const schedule: Seg[] = []
+  if (nextWindow) {
+    let prev = nextWindow
+    for (const w of moreClosures) {
+      const mins = Math.round((w.closeAt.getTime() - prev.openAt.getTime()) / 60000)
+      if (mins > 0) schedule.push({ kind: 'open', from: prev.openAt, to: w.closeAt, mins })
+      schedule.push({ kind: 'closed', close: w.closeAt, open: w.openAt, trains: w.trains.length })
+      prev = w
+    }
+  }
+
   let subText = 'No trains within 20 min window'
   if (isClosed && currentWindow) {
     subText = `Reopens at ${formatTime(currentWindow.openAt)}`
@@ -88,6 +104,7 @@ export function StatusCard({ prediction }: Props) {
         <InfoCell
           label={isClosed ? 'Reopens at' : 'Next closure'}
           value={nextWindow ? formatTime(isClosed ? nextWindow.openAt : nextWindow.closeAt) : '—'}
+          sub={nextWindow && !isClosed ? `reopens ${formatTime(nextWindow.openAt)}` : undefined}
           highlight={!isOpen}
         />
         <InfoCell
@@ -97,27 +114,40 @@ export function StatusCard({ prediction }: Props) {
         />
       </div>
 
-      {/* Next closures after this one — for planning back-to-back / gapped trains */}
-      {moreClosures.length > 0 && (
+      {/* Interleaved open/closed schedule — shows the open window to cross before
+          the gate shuts again (for back-to-back or gapped trains) */}
+      {schedule.length > 0 && (
         <div className="mt-3 pt-3 border-t border-[#243247]">
           <div className="text-[9px] font-medium tracking-widest uppercase text-[#5E7090] mb-1.5">
-            {isClosed ? 'Then closes again' : 'After that'}
+            Coming up
           </div>
-          {moreClosures.map((w, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between text-[11px] py-1"
-              style={{ fontFamily: "'JetBrains Mono', monospace" }}
-            >
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#FF4444' }} />
-                <span className="text-[#C8D6E8]">Closes {formatTime(w.closeAt)}</span>
-              </span>
-              <span className="text-[#5E7090]">
-                {windowDuration(w)} · {w.trains.length} train{w.trains.length > 1 ? 's' : ''}
-              </span>
-            </div>
-          ))}
+          {schedule.map((seg, i) =>
+            seg.kind === 'open' ? (
+              <div
+                key={i}
+                className="flex items-center justify-between text-[11px] py-1"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#00C896' }} />
+                  <span className="text-[#00C896]">Open {formatTime(seg.from)}–{formatTime(seg.to)}</span>
+                </span>
+                <span className="text-[#5E7090]">~{seg.mins} min to cross</span>
+              </div>
+            ) : (
+              <div
+                key={i}
+                className="flex items-center justify-between text-[11px] py-1"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#FF4444' }} />
+                  <span className="text-[#C8D6E8]">Closed {formatTime(seg.close)}–{formatTime(seg.open)}</span>
+                </span>
+                <span className="text-[#5E7090]">{seg.trains} train{seg.trains > 1 ? 's' : ''}</span>
+              </div>
+            )
+          )}
         </div>
       )}
 
