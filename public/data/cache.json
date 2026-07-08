@@ -7,19 +7,19 @@
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "18:45",
-        "expectedDepartureTime": "2026-07-08T18:45:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-08T18:49:00+05:30",
+        "delayMinutes": 4
       },
       {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-08T20:26:00+05:30",
-        "delayMinutes": 46
+        "expectedDepartureTime": "2026-07-08T20:44:00+05:30",
+        "delayMinutes": 64
       }
     ],
-    "fetchedAt": "2026-07-08T12:30:46Z"
+    "fetchedAt": "2026-07-08T13:00:46Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -29,27 +29,27 @@
         "trainName": "Hosur - Yesvantpur MEMU",
         "status": "upcoming",
         "scheduledDepartureTime": "18:19",
-        "expectedDepartureTime": "2026-07-08T18:32:00+05:30",
-        "delayMinutes": 13
+        "expectedDepartureTime": "2026-07-08T18:39:00+05:30",
+        "delayMinutes": 20
       },
       {
         "trainNo": "66583",
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-08T18:55:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-08T18:59:00+05:30",
+        "delayMinutes": 4
       },
       {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-08T19:46:00+05:30",
-        "delayMinutes": 46
+        "expectedDepartureTime": "2026-07-08T20:04:00+05:30",
+        "delayMinutes": 64
       }
     ],
-    "fetchedAt": "2026-07-08T12:30:46Z"
+    "fetchedAt": "2026-07-08T13:00:46Z"
   },
-  "generatedAt": "2026-07-08T12:30:46Z"
+  "generatedAt": "2026-07-08T13:00:46Z"
 }
