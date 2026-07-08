@@ -14,10 +14,10 @@ export function Timeline({ prediction }: Props) {
   if (allWindows.length === 0) {
     return (
       <div className="p-4 text-center text-[#5E7090] text-sm pt-12">
-        No upcoming closures predicted in the next 20 minutes.
+        No upcoming closures predicted in the next hour.
         <br />
         <span className="text-[11px] text-[#3A4F6A] block mt-1">
-          Data refreshes every 10 minutes
+          Data refreshes every 30 minutes (8 AM–8 PM IST)
         </span>
       </div>
     )

@@ -27,7 +27,11 @@ export const KAGGADASAPURA: CrossingConfig = {
 }
 
 export const PREDICTION_CONFIG = {
-  approachingWindowMinutes: 20,
+  // How far ahead to surface trains. RailRadar's live board (already fetched in
+  // the same 2 API calls) returns ~1 hour of departures, so widening this to 60
+  // min lets us show the next two closures — even with a gap — at NO extra API
+  // cost. The APPROACHING/CLOSED state still keys off gateCloseBeforeSeconds.
+  approachingWindowMinutes: 60,
   cacheMinutes: 35,             // data is "fresh" within one 30-min refresh cycle
   refreshIntervalMinutes: 5,    // how often the browser re-reads the committed cache.json (free, no API call)
   confidenceDecayStartMinutes: 35,  // stay at full confidence within a normal 30-min cycle

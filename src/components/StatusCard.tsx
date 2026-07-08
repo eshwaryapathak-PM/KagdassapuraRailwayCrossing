@@ -28,6 +28,10 @@ export function StatusCard({ prediction }: Props) {
   const inServiceWindow = istHour >= 8 && istHour < 20
   const isStale = dataAgeSeconds > 2700
 
+  // Closures coming up AFTER the one shown in the cells above — lets people plan
+  // for a second train arriving back-to-back or after a gap.
+  const moreClosures = (isClosed ? upcomingWindows : upcomingWindows.slice(1)).slice(0, 2)
+
   let subText = 'No trains within 20 min window'
   if (isClosed && currentWindow) {
     subText = `Reopens at ${formatTime(currentWindow.openAt)}`
@@ -92,6 +96,30 @@ export function StatusCard({ prediction }: Props) {
           sub={nextWindow ? `${nextWindow.trains.length} train${nextWindow.trains.length > 1 ? 's' : ''}` : ''}
         />
       </div>
+
+      {/* Next closures after this one — for planning back-to-back / gapped trains */}
+      {moreClosures.length > 0 && (
+        <div className="mt-3 pt-3 border-t border-[#243247]">
+          <div className="text-[9px] font-medium tracking-widest uppercase text-[#5E7090] mb-1.5">
+            {isClosed ? 'Then closes again' : 'After that'}
+          </div>
+          {moreClosures.map((w, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between text-[11px] py-1"
+              style={{ fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#FF4444' }} />
+                <span className="text-[#C8D6E8]">Closes {formatTime(w.closeAt)}</span>
+              </span>
+              <span className="text-[#5E7090]">
+                {windowDuration(w)} · {w.trains.length} train{w.trains.length > 1 ? 's' : ''}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Staleness note — refresh runs every 30 min inside the 8AM–8PM IST window */}
       {isStale && (

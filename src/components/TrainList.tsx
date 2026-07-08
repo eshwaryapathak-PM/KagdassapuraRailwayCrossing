@@ -10,7 +10,7 @@ export function TrainList({ trains }: Props) {
     return (
       <div className="mx-4 mt-2.5 rounded-xl border border-[#3A4F6A] bg-[#1A2332] px-4 py-5 text-center">
         <div className="text-[#5E7090] text-sm">No trains approaching</div>
-        <div className="text-[#3A4F6A] text-xs mt-1">Showing trains within 20 min window</div>
+        <div className="text-[#3A4F6A] text-xs mt-1">Showing trains within the next hour</div>
       </div>
     )
   }
@@ -34,9 +34,15 @@ export function TrainList({ trains }: Props) {
         </span>
       </div>
 
-      {trains.map((train, i) => (
+      {trains.slice(0, 6).map((train, i) => (
         <TrainRow key={train.trainNo} train={train} isFirst={i === 0} />
       ))}
+      {trains.length > 6 && (
+        <div className="px-4 py-2 text-[10px] text-[#3A4F6A] border-t border-[#3A4F6A]"
+          style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+          +{trains.length - 6} more within the hour
+        </div>
+      )}
     </div>
   )
 }
