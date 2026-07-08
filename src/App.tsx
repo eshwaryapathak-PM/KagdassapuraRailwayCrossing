@@ -81,9 +81,10 @@ function Inner() {
                   <span className="text-[#FF4444] font-medium">closed</span>.
                 </p>
                 <p>
-                  It reads live train departures from the two stations on either side —
+                  It reads live train departures — <span className="text-[#C8D6E8]">including any
+                  running delays</span> — from the two stations on either side,
                   <span className="text-[#C8D6E8]"> Baiyyappanahalli (BYPL)</span> and
-                  <span className="text-[#C8D6E8]"> Belandur Road (BLRR)</span> — estimates
+                  <span className="text-[#C8D6E8]"> Belandur Road (BLRR)</span>, estimates
                   when each train reaches the crossing, and assumes the gate closes about
                   5 minutes before a train passes and reopens ~2 minutes after.
                 </p>

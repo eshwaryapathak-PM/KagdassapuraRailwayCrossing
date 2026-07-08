@@ -64,11 +64,21 @@ function TrainRow({ train, isFirst }: { train: ApproachingTrain; isFirst: boolea
       />
 
       <div className="flex-1 min-w-0">
-        <div
-          className="text-[13px] font-medium text-[#C8D6E8]"
-          style={{ fontFamily: "'JetBrains Mono', monospace" }}
-        >
-          {train.trainNo}
+        <div className="flex items-center gap-2">
+          <span
+            className="text-[13px] font-medium text-[#C8D6E8]"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            {train.trainNo}
+          </span>
+          {train.delayMinutes > 0 && (
+            <span
+              className="text-[9px] px-1.5 py-0.5 rounded"
+              style={{ background: 'rgba(245,166,35,0.12)', color: '#F5A623', fontFamily: "'JetBrains Mono', monospace" }}
+            >
+              +{train.delayMinutes}m late
+            </span>
+          )}
         </div>
         <div className="text-[11px] text-[#5E7090] truncate">{train.trainName}</div>
       </div>

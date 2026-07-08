@@ -87,6 +87,7 @@ function buildApproachingTrains(
         etaSeconds,
         gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
         sourceStation,
+        delayMinutes: entry.delayMinutes ?? 0,
       })
     }
   }

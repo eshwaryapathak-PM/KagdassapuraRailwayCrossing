@@ -45,23 +45,46 @@ def extract_trains(raw, label):
             if not no:
                 continue
 
+            # Scheduled departure (clock time, e.g. "16:48")
             sched = str(
-                stop.get("scheduled_departure")
-                or stop.get("departure")
+                stop.get("departure")
+                or stop.get("scheduled_departure")
                 or stop.get("std")
                 or ""
             ).strip()
+
+            # Expected (delay-adjusted) departure. RailRadar returns this as a full
+            # ISO timestamp with timezone in `live.expectedDepartureTime`, e.g.
+            # "2026-07-07T17:28:00+05:30". Passing the ISO through lets the browser
+            # compute the true ETA regardless of its own timezone. Falls back to the
+            # scheduled clock time only if no live expected time is available.
             exp = str(
-                stop.get("expected_departure")
-                or stop.get("exp_dep")
-                or stop.get("etd")
+                live.get("expectedDepartureTime")
+                or live.get("expected_departure")
+                or stop.get("expected_departure")
                 or sched
             ).strip()
-            status = str(live.get("status") or stop.get("status") or "scheduled").strip()
+
+            # Delay in minutes (RailRadar: live.delayMinutes)
+            delay_raw = live.get("delayMinutes")
+            if delay_raw is None:
+                delay_raw = live.get("delay_minutes") or live.get("delay") or 0
             try:
-                delay = int(live.get("delay_minutes") or live.get("delay") or 0)
+                delay = int(delay_raw)
             except (TypeError, ValueError):
                 delay = 0
+
+            # Status — RailRadar uses live.type ("upcoming", "departed", …).
+            # Normalise anything indicating a cancellation to "cancelled" so the
+            # prediction engine skips it.
+            raw_status = str(
+                live.get("type") or live.get("status") or stop.get("status") or "scheduled"
+            ).strip().lower()
+            is_cancelled = bool(
+                live.get("cancelled") or t.get("cancelled") or entry.get("cancelled")
+                or "cancel" in raw_status
+            )
+            status = "cancelled" if is_cancelled else raw_status
 
             trains.append({
                 "trainNo": no,

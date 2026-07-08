@@ -68,9 +68,10 @@ export interface ApproachingTrain {
   trainNo: string
   trainName: string
   direction: TrainDirection
-  etaSeconds: number            // seconds until crossing
+  etaSeconds: number            // seconds until crossing (based on delay-adjusted departure)
   gateClosed: boolean
   sourceStation: string
+  delayMinutes: number          // live delay; ETA already accounts for it
 }
 
 export interface GateWindow {
