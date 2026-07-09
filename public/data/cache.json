@@ -3,37 +3,53 @@
     "stationCode": "BYPL",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
+        "trainNo": "66584",
+        "trainName": "Dharmapuri - KSR Bengaluru MEMU",
         "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-08T21:03:00+05:30",
-        "delayMinutes": 83
+        "scheduledDepartureTime": "07:19",
+        "expectedDepartureTime": "2026-07-09T08:01:00+05:30",
+        "delayMinutes": 42
       }
     ],
-    "fetchedAt": "2026-07-08T14:01:30Z"
+    "fetchedAt": "2026-07-09T02:31:15Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-08T20:23:00+05:30",
-        "delayMinutes": 83
+        "trainNo": "16529",
+        "trainName": "Karaikal Express",
+        "status": "not-started",
+        "scheduledDepartureTime": "07:49",
+        "expectedDepartureTime": "2026-07-09T08:06:00+05:30",
+        "delayMinutes": 17
       },
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "departed",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-08T19:25:00+05:30",
-        "delayMinutes": 30
+        "trainNo": "66596",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "09:04",
+        "expectedDepartureTime": "2026-07-09T09:04:00+05:30",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-07-09T09:42:00+05:30",
+        "delayMinutes": 34
+      },
+      {
+        "trainNo": "66563",
+        "trainName": "Yesvantpur- Hosur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "11:26",
+        "expectedDepartureTime": "2026-07-09T11:26:00+05:30",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-08T14:01:30Z"
+    "fetchedAt": "2026-07-09T02:31:15Z"
   },
-  "generatedAt": "2026-07-08T14:01:30Z"
+  "generatedAt": "2026-07-09T02:31:15Z"
 }
