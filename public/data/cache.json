@@ -9,28 +9,44 @@
         "scheduledDepartureTime": "18:45",
         "expectedDepartureTime": "2026-07-09T18:45:00+05:30",
         "delayMinutes": 0
+      },
+      {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "19:40",
+        "expectedDepartureTime": "2026-07-09T19:43:00+05:30",
+        "delayMinutes": 3
       }
     ],
-    "fetchedAt": "2026-07-09T10:01:14Z"
+    "fetchedAt": "2026-07-09T10:36:13Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
+        "trainNo": "66564",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "upcoming",
+        "scheduledDepartureTime": "16:01",
+        "expectedDepartureTime": "2026-07-09T16:10:00+05:30",
+        "delayMinutes": 9
+      },
+      {
         "trainNo": "66585",
         "trainName": "Yesvantpur- Hosur MEMU",
         "status": "upcoming",
         "scheduledDepartureTime": "15:43",
-        "expectedDepartureTime": "2026-07-09T15:49:00+05:30",
-        "delayMinutes": 6
+        "expectedDepartureTime": "2026-07-09T16:11:00+05:30",
+        "delayMinutes": 28
       },
       {
-        "trainNo": "66564",
-        "trainName": "Hosur - Yesvantpur MEMU",
+        "trainNo": "16211",
+        "trainName": "Salem Express",
         "status": "not-started",
-        "scheduledDepartureTime": "16:01",
-        "expectedDepartureTime": "2026-07-09T16:01:00+05:30",
-        "delayMinutes": 0
+        "scheduledDepartureTime": "16:36",
+        "expectedDepartureTime": "2026-07-09T16:41:00+05:30",
+        "delayMinutes": 5
       },
       {
         "trainNo": "66583",
@@ -45,16 +61,8 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-09T19:00:00+05:30",
-        "delayMinutes": 0
-      },
-      {
-        "trainNo": "16211",
-        "trainName": "Salem Express",
-        "status": "scheduled",
-        "scheduledDepartureTime": "16:36",
-        "expectedDepartureTime": "2026-07-09T16:36:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-09T19:03:00+05:30",
+        "delayMinutes": 3
       },
       {
         "trainNo": "66586",
@@ -65,7 +73,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T10:01:14Z"
+    "fetchedAt": "2026-07-09T10:36:13Z"
   },
-  "generatedAt": "2026-07-09T10:01:14Z"
+  "generatedAt": "2026-07-09T10:36:13Z"
 }
