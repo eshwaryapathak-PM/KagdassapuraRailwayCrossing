@@ -13,13 +13,13 @@
       {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
+        "status": "scheduled",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-09T20:06:00+05:30",
-        "delayMinutes": 26
+        "expectedDepartureTime": "2026-07-09T19:40:00+05:30",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T11:31:13Z"
+    "fetchedAt": "2026-07-09T12:01:12Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -33,14 +33,6 @@
         "delayMinutes": 0
       },
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-09T19:26:00+05:30",
-        "delayMinutes": 26
-      },
-      {
         "trainNo": "66586",
         "trainName": "Hosur - Yesvantpur MEMU",
         "status": "scheduled",
@@ -49,15 +41,15 @@
         "delayMinutes": 0
       },
       {
-        "trainNo": "16211",
-        "trainName": "Salem Express",
-        "status": "departed",
-        "scheduledDepartureTime": "16:36",
-        "expectedDepartureTime": "2026-07-09T16:51:00+05:30",
-        "delayMinutes": 15
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "19:00",
+        "expectedDepartureTime": "2026-07-09T19:00:00+05:30",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T11:31:13Z"
+    "fetchedAt": "2026-07-09T12:01:12Z"
   },
-  "generatedAt": "2026-07-09T11:31:13Z"
+  "generatedAt": "2026-07-09T12:01:12Z"
 }
