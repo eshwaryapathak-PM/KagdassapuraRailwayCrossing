@@ -2,18 +2,18 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-09T06:31:14Z"
+    "fetchedAt": "2026-07-09T07:36:15Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "66563",
-        "trainName": "Yesvantpur- Hosur MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "11:26",
-        "expectedDepartureTime": "2026-07-09T12:20:00+05:30",
-        "delayMinutes": 54
+        "trainNo": "66564",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "16:01",
+        "expectedDepartureTime": "2026-07-09T16:01:00+05:30",
+        "delayMinutes": 0
       },
       {
         "trainNo": "66585",
@@ -24,15 +24,15 @@
         "delayMinutes": 0
       },
       {
-        "trainNo": "66564",
-        "trainName": "Hosur - Yesvantpur MEMU",
+        "trainNo": "16211",
+        "trainName": "Salem Express",
         "status": "scheduled",
-        "scheduledDepartureTime": "16:01",
-        "expectedDepartureTime": "2026-07-09T16:01:00+05:30",
+        "scheduledDepartureTime": "16:36",
+        "expectedDepartureTime": "2026-07-09T16:36:00+05:30",
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T06:31:14Z"
+    "fetchedAt": "2026-07-09T07:36:15Z"
   },
-  "generatedAt": "2026-07-09T06:31:14Z"
+  "generatedAt": "2026-07-09T07:36:15Z"
 }
