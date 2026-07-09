@@ -7,8 +7,8 @@
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "18:45",
-        "expectedDepartureTime": "2026-07-09T18:45:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-09T18:53:00+05:30",
+        "delayMinutes": 8
       },
       {
         "trainNo": "16530",
@@ -19,7 +19,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T12:01:12Z"
+    "fetchedAt": "2026-07-09T13:05:37Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -29,16 +29,8 @@
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-09T18:55:00+05:30",
-        "delayMinutes": 0
-      },
-      {
-        "trainNo": "66586",
-        "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "scheduled",
-        "scheduledDepartureTime": "18:19",
-        "expectedDepartureTime": "2026-07-09T18:19:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-09T19:03:00+05:30",
+        "delayMinutes": 8
       },
       {
         "trainNo": "16530",
@@ -49,7 +41,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-09T12:01:12Z"
+    "fetchedAt": "2026-07-09T13:05:37Z"
   },
-  "generatedAt": "2026-07-09T12:01:12Z"
+  "generatedAt": "2026-07-09T13:05:37Z"
 }
