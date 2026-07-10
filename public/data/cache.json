@@ -15,11 +15,11 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-10T19:55:00+05:30",
-        "delayMinutes": 15
+        "expectedDepartureTime": "2026-07-10T20:10:00+05:30",
+        "delayMinutes": 30
       }
     ],
-    "fetchedAt": "2026-07-10T11:00:41Z"
+    "fetchedAt": "2026-07-10T11:30:42Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -29,8 +29,8 @@
         "trainName": "Salem Express",
         "status": "upcoming",
         "scheduledDepartureTime": "16:36",
-        "expectedDepartureTime": "2026-07-10T16:50:00+05:30",
-        "delayMinutes": 14
+        "expectedDepartureTime": "2026-07-10T16:56:00+05:30",
+        "delayMinutes": 20
       },
       {
         "trainNo": "66586",
@@ -53,11 +53,11 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-10T19:15:00+05:30",
-        "delayMinutes": 15
+        "expectedDepartureTime": "2026-07-10T19:30:00+05:30",
+        "delayMinutes": 30
       }
     ],
-    "fetchedAt": "2026-07-10T11:00:41Z"
+    "fetchedAt": "2026-07-10T11:30:42Z"
   },
-  "generatedAt": "2026-07-10T11:00:41Z"
+  "generatedAt": "2026-07-10T11:30:42Z"
 }
