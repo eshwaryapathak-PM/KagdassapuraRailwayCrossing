@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-10T07:30:42Z"
+    "fetchedAt": "2026-07-10T08:00:40Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -32,7 +32,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-10T07:30:42Z"
+    "fetchedAt": "2026-07-10T08:00:40Z"
   },
-  "generatedAt": "2026-07-10T07:30:42Z"
+  "generatedAt": "2026-07-10T08:00:40Z"
 }
