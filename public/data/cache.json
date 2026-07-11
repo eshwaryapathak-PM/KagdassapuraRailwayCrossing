@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-11T05:00:41Z"
+    "fetchedAt": "2026-07-11T05:30:40Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -10,13 +10,13 @@
       {
         "trainNo": "66563",
         "trainName": "Yesvantpur- Hosur MEMU",
-        "status": "not-started",
+        "status": "upcoming",
         "scheduledDepartureTime": "11:26",
-        "expectedDepartureTime": "2026-07-11T11:26:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-11T11:30:00+05:30",
+        "delayMinutes": 4
       }
     ],
-    "fetchedAt": "2026-07-11T05:00:41Z"
+    "fetchedAt": "2026-07-11T05:30:40Z"
   },
-  "generatedAt": "2026-07-11T05:00:41Z"
+  "generatedAt": "2026-07-11T05:30:40Z"
 }
