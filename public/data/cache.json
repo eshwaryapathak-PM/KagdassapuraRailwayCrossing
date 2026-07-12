@@ -2,21 +2,12 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-12T04:30:53Z"
+    "fetchedAt": "2026-07-12T05:00:56Z"
   },
   "stationB": {
     "stationCode": "BLRR",
-    "trains": [
-      {
-        "trainNo": "16212",
-        "trainName": "Yesvantpur Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "09:08",
-        "expectedDepartureTime": "2026-07-12T10:08:00+05:30",
-        "delayMinutes": 60
-      }
-    ],
-    "fetchedAt": "2026-07-12T04:30:53Z"
+    "trains": [],
+    "fetchedAt": "2026-07-12T05:00:56Z"
   },
-  "generatedAt": "2026-07-12T04:30:53Z"
+  "generatedAt": "2026-07-12T05:00:56Z"
 }
