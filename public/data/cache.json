@@ -19,7 +19,7 @@
         "delayMinutes": 34
       }
     ],
-    "fetchedAt": "2026-07-12T11:30:56Z"
+    "fetchedAt": "2026-07-12T12:00:54Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -41,7 +41,7 @@
         "delayMinutes": 34
       }
     ],
-    "fetchedAt": "2026-07-12T11:30:56Z"
+    "fetchedAt": "2026-07-12T12:00:54Z"
   },
-  "generatedAt": "2026-07-12T11:30:56Z"
+  "generatedAt": "2026-07-12T12:00:54Z"
 }
