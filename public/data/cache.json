@@ -1,8 +1,17 @@
 {
   "stationA": {
     "stationCode": "BYPL",
-    "trains": [],
-    "fetchedAt": "2026-07-13T09:00:54Z"
+    "trains": [
+      {
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:45",
+        "expectedDepartureTime": "2026-07-13T18:45:00+05:30",
+        "delayMinutes": 0
+      }
+    ],
+    "fetchedAt": "2026-07-13T09:30:55Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -38,9 +47,25 @@
         "scheduledDepartureTime": "18:19",
         "expectedDepartureTime": "2026-07-13T18:19:00+05:30",
         "delayMinutes": 0
+      },
+      {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "19:00",
+        "expectedDepartureTime": "2026-07-13T19:18:00+05:30",
+        "delayMinutes": 18
+      },
+      {
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
+        "status": "scheduled",
+        "scheduledDepartureTime": "18:55",
+        "expectedDepartureTime": "2026-07-13T18:55:00+05:30",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-13T09:00:54Z"
+    "fetchedAt": "2026-07-13T09:30:55Z"
   },
-  "generatedAt": "2026-07-13T09:00:54Z"
+  "generatedAt": "2026-07-13T09:30:55Z"
 }
