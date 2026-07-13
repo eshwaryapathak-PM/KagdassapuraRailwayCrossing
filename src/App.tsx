@@ -5,12 +5,13 @@ import { StatusCard } from './components/StatusCard'
 import { TrainList } from './components/TrainList'
 import { Timeline } from './components/Timeline'
 import { CrossingMap } from './components/CrossingMap'
+import { RouteView } from './components/RouteView'
 import { BottomNav } from './components/BottomNav'
 import { usePrediction } from './hooks/usePrediction'
 
 const queryClient = new QueryClient()
 
-type Tab = 'status' | 'timeline' | 'map'
+type Tab = 'status' | 'route' | 'timeline' | 'map'
 
 function Inner() {
   const [tab, setTab] = useState<Tab>('status')
@@ -97,6 +98,7 @@ function Inner() {
             </details>
           </>
         )}
+        {tab === 'route' && <RouteView prediction={prediction} />}
         {tab === 'timeline' && <Timeline prediction={prediction} />}
         {tab === 'map' && <CrossingMap prediction={prediction} />}
       </main>

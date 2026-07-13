@@ -1,5 +1,5 @@
 import React from "react"
-type Tab = 'status' | 'timeline' | 'map'
+type Tab = 'status' | 'route' | 'timeline' | 'map'
 
 interface Props {
   active: Tab
@@ -15,6 +15,15 @@ const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
         <circle cx="12" cy="12" r="10"/>
         <line x1="12" y1="8" x2="12" y2="12"/>
         <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'route',
+    label: 'Route',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
       </svg>
     ),
   },

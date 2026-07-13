@@ -46,6 +46,48 @@ async function dispatch(env) {
   return res.status // 204 = success
 }
 
+// ── Live traffic (TomTom) ────────────────────────────────────────────────────
+// Driving time (with live traffic) from the two approach landmarks to the gate.
+// Needs a Worker secret TOMTOM_KEY (free tier). Cached 3 min so many visitors
+// share one upstream call, keeping us well inside TomTom's free daily limit.
+const GATE = '12.9836831,77.679778'
+const ROUTES = {
+  purva: { label: 'Purva Seasons', side: 'west', origin: '12.9877795,77.6668834' },
+  ganga: { label: 'Sri Ganga Bhavani Temple', side: 'east', origin: '12.9887396,77.6843295' },
+}
+
+async function oneRoute(origin, env) {
+  const url =
+    `https://api.tomtom.com/routing/1/calculateRoute/${origin}:${GATE}/json` +
+    `?key=${env.TOMTOM_KEY}&traffic=true&travelMode=car&routeType=fastest`
+  const r = await fetch(url)
+  if (!r.ok) return { error: `tomtom ${r.status}` }
+  const s = ((await r.json()).routes || [])[0]?.summary
+  if (!s) return { error: 'no-route' }
+  return {
+    sec: s.travelTimeInSeconds,
+    delaySec: s.trafficDelayInSeconds ?? 0,
+    freeSec: s.noTrafficTravelTimeInSeconds ?? s.travelTimeInSeconds,
+    meters: s.lengthInMeters,
+  }
+}
+
+async function trafficResponse(env) {
+  if (!env.TOMTOM_KEY) {
+    return { error: 'TOMTOM_KEY not set on the Worker' }
+  }
+  const [purva, ganga] = await Promise.all([
+    oneRoute(ROUTES.purva.origin, env),
+    oneRoute(ROUTES.ganga.origin, env),
+  ])
+  return {
+    routes: {
+      purva: { ...ROUTES.purva, ...purva },
+      ganga: { ...ROUTES.ganga, ...ganga },
+    },
+  }
+}
+
 export default {
   // Fired automatically by the cron triggers.
   async scheduled(_event, env, _ctx) {
@@ -53,9 +95,33 @@ export default {
     console.log('scheduled dispatch status:', status)
   },
 
-  // Optional manual test endpoint, protected by TRIGGER_KEY.
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url)
+
+    // ── Live traffic endpoint (CORS-enabled, 3-min edge cache) ───────────────
+    if (url.pathname === '/traffic') {
+      const cache = caches.default
+      // Fixed key (ignores the client's ?t= cache-buster) so all callers share
+      // one cached upstream result for ~3 min.
+      const cacheKey = new Request(new URL('/traffic', url.origin).toString(), { method: 'GET' })
+      let hit = await cache.match(cacheKey)
+      if (!hit) {
+        const data = await trafficResponse(env)
+        hit = new Response(JSON.stringify(data), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'public, max-age=180',
+          },
+        })
+        ctx.waitUntil(cache.put(cacheKey, hit.clone()))
+      }
+      // add CORS on every response (cached or fresh)
+      const out = new Response(hit.body, hit)
+      out.headers.set('Access-Control-Allow-Origin', '*')
+      return out
+    }
+
+    // ── Manual refresh trigger (protected by TRIGGER_KEY) ────────────────────
     if (!env.TRIGGER_KEY || url.searchParams.get('key') !== env.TRIGGER_KEY) {
       return new Response('Kaggadasapura refresh worker — runs on schedule.', { status: 200 })
     }

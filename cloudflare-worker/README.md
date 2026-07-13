@@ -31,6 +31,22 @@ schedule to run the **Refresh crossing data** workflow.
    It should say `dispatched: 204`, and a new run appears in the repo's
    **Actions** tab within seconds.
 
+## Live traffic (Route tab) — optional
+
+The Worker also serves `GET /traffic`, which returns TomTom driving times (with
+live traffic) from the two approach landmarks to the gate, cached ~3 min. To
+enable it:
+
+1. Get a free API key at **[developer.tomtom.com](https://developer.tomtom.com)**
+   (free tier — no card needed).
+2. Worker → **Settings → Variables and Secrets** → add secret
+   **`TOMTOM_KEY`** = your key.
+3. Redeploy the Worker (paste the latest `worker.js`).
+
+Test: open `https://<your-worker>.workers.dev/traffic` — you should get JSON with
+`routes.purva` and `routes.ganga` travel times. The app's **Route (beta)** tab
+reads this and adds the gate wait.
+
 ## GitHub token
 
 [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
