@@ -1,5 +1,5 @@
 import type { ApproachingTrain } from '../types'
-import { formatEta } from '../lib/prediction'
+import { formatEta, formatTime } from '../lib/prediction'
 
 interface Props {
   trains: ApproachingTrain[]
@@ -85,13 +85,16 @@ function TrainRow({ train, isFirst }: { train: ApproachingTrain; isFirst: boolea
 
       <div className="text-right flex-shrink-0">
         <div
-          className="text-xs font-medium"
+          className="text-[13px] font-semibold leading-none"
           style={{ fontFamily: "'JetBrains Mono', monospace", color: etaColor }}
         >
-          {formatEta(train.etaSeconds)}
+          {formatTime(train.crossingAt)}
         </div>
-        <div className="text-[10px] text-[#3A4F6A] mt-0.5">
-          {train.direction === 'AtoB' ? '→ BLRR' : '← BYPL'}
+        <div
+          className="text-[10px] text-[#5E7090] mt-1"
+          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+        >
+          {isPast ? 'passed' : `in ${formatEta(train.etaSeconds)}`} · {train.direction === 'AtoB' ? '→ BLRR' : '← BYPL'}
         </div>
       </div>
 

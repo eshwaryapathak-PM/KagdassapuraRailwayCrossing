@@ -85,6 +85,7 @@ function buildApproachingTrains(
         trainName: entry.trainName,
         direction,
         etaSeconds,
+        crossingAt: etaDate,
         gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
         sourceStation,
         delayMinutes: entry.delayMinutes ?? 0,

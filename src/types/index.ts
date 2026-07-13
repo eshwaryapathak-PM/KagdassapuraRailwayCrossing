@@ -69,6 +69,7 @@ export interface ApproachingTrain {
   trainName: string
   direction: TrainDirection
   etaSeconds: number            // seconds until crossing (based on delay-adjusted departure)
+  crossingAt: Date              // clock time it reaches the crossing (delay-adjusted)
   gateClosed: boolean
   sourceStation: string
   delayMinutes: number          // live delay; ETA already accounts for it
