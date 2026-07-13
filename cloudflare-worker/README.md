@@ -34,7 +34,7 @@ schedule to run the **Refresh crossing data** workflow.
 ## Live traffic (Route tab) — optional
 
 The Worker also serves `GET /traffic`, which returns TomTom driving times (with
-live traffic) from the two approach landmarks to the gate, cached ~3 min. To
+live traffic) from the two approach landmarks to the gate, cached ~2 min. To
 enable it:
 
 1. Get a free API key at **[developer.tomtom.com](https://developer.tomtom.com)**

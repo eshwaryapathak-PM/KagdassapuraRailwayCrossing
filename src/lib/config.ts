@@ -57,5 +57,5 @@ export const PREDICTION_CONFIG = {
 export const CACHE_JSON_URL = `${import.meta.env.BASE_URL}data/cache.json`
 
 // Live-traffic endpoint served by the Cloudflare Worker (proxies TomTom, key
-// stays a Worker secret, cached 3 min). Used by the Route (beta) tab.
+// stays a Worker secret, cached 2 min). Used by the Route (beta) tab.
 export const TRAFFIC_URL = 'https://kaggadasapura-refresh.eshwaryapathak.workers.dev/traffic'
