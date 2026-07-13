@@ -21,15 +21,38 @@ interface TrafficResp {
 
 const mins = (s: number) => Math.max(1, Math.round(s / 60))
 
-// How long the gate would hold you up if you arrive at `arrivalAt`.
-function gateWait(arrivalAt: Date, prediction: PredictionResult) {
+// Extra minutes of jam-clearing per minute the gate stays shut. A rough,
+// tunable heuristic — we have no live queue sensor, so we estimate the backed-up
+// traffic from how long the gate is/was closed. Raise it if the crossing jams
+// badly, lower it if it clears fast.
+const QUEUE_FACTOR = 0.6
+
+// Gate impact if you arrive at `arrivalAt`:
+//   waitSec  = time until the gate reopens (if you arrive while it's shut)
+//   queueSec = estimated time to crawl through the backed-up jam after it opens
+function gateImpact(arrivalAt: Date, prediction: PredictionResult) {
+  const arr = arrivalAt.getTime()
   const windows = [prediction.currentWindow, ...prediction.upcomingWindows].filter(Boolean) as GateWindow[]
   for (const w of windows) {
-    if (arrivalAt.getTime() >= w.closeAt.getTime() && arrivalAt.getTime() < w.openAt.getTime()) {
-      return { waitSec: Math.round((w.openAt.getTime() - arrivalAt.getTime()) / 1000), reopenAt: w.openAt }
+    const close = w.closeAt.getTime()
+    const open = w.openAt.getTime()
+    const clearMs = QUEUE_FACTOR * (open - close) // full jam-clear time after reopening
+
+    if (arr >= close && arr < open) {
+      // Arriving while shut: wait for reopen + crawl past those who queued before you.
+      return {
+        waitSec: (open - arr) / 1000,
+        queueSec: (QUEUE_FACTOR * (arr - close)) / 1000,
+        reopenAt: w.openAt,
+        blocked: true,
+      }
+    }
+    if (arr >= open && arr < open + clearMs) {
+      // Arriving just after reopen while the jam is still clearing.
+      return { waitSec: 0, queueSec: (open + clearMs - arr) / 1000, reopenAt: w.openAt, blocked: true }
     }
   }
-  return { waitSec: 0, reopenAt: null as Date | null }
+  return { waitSec: 0, queueSec: 0, reopenAt: null as Date | null, blocked: false }
 }
 
 export function RouteView({ prediction }: { prediction: PredictionResult }) {
@@ -54,7 +77,8 @@ export function RouteView({ prediction }: { prediction: PredictionResult }) {
         <span className="text-[9px] px-1.5 py-0.5 rounded" style={{ background: 'rgba(245,166,35,0.12)', color: '#F5A623' }}>BETA</span>
       </div>
       <p className="text-[11px] text-[#5E7090] mb-4 leading-relaxed">
-        Live driving time (traffic) <span className="text-[#C8D6E8]">plus</span> the expected gate wait,
+        Live driving time (traffic) <span className="text-[#C8D6E8]">plus</span> the gate wait
+        <span className="text-[#C8D6E8]"> and an estimate of the jam</span> it takes to clear after the gate reopens —
         for each approach to the crossing.
       </p>
 
@@ -100,10 +124,10 @@ function RouteCard({ route, prediction }: { route: RouteData; prediction: Predic
 
   const drivingSec = route.sec
   const arrivalAt = addSeconds(new Date(), drivingSec)
-  const { waitSec, reopenAt } = gateWait(arrivalAt, prediction)
-  const totalSec = drivingSec + waitSec
+  const { waitSec, queueSec, reopenAt, blocked } = gateImpact(arrivalAt, prediction)
+  const gateDelaySec = waitSec + queueSec
+  const totalSec = drivingSec + gateDelaySec
   const heavy = (route.delaySec ?? 0) >= 60
-  const blocked = waitSec > 0
   const totalColor = blocked ? '#FF4444' : heavy ? '#F5A623' : '#00C896'
 
   return (
@@ -133,14 +157,15 @@ function RouteCard({ route, prediction }: { route: RouteData; prediction: Predic
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: blocked ? '#FF4444' : '#00C896' }} />
           <span style={{ color: blocked ? '#FF4444' : '#00C896' }}>
-            {blocked ? `+${mins(waitSec)} min gate` : 'gate clear'}
+            {blocked ? `+${mins(gateDelaySec)} min gate` : 'gate clear'}
           </span>
         </span>
       </div>
 
       {blocked && reopenAt && (
-        <div className="text-[10px] text-[#F5A623] mt-2">
-          You'd reach the gate ~{formatTime(arrivalAt)} during a closure — reopens {formatTime(reopenAt)}.
+        <div className="text-[10px] text-[#F5A623] mt-2 leading-relaxed">
+          You'd reach the gate ~{formatTime(arrivalAt)} around a closure — reopens {formatTime(reopenAt)}
+          {queueSec >= 30 && <> · +~{mins(queueSec)} min to clear the jam</>}.
         </div>
       )}
     </div>
