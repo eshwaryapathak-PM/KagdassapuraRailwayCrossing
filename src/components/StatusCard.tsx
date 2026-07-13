@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { PredictionResult } from '../types'
 import { formatTime, windowDuration, formatEta } from '../lib/prediction'
 
@@ -5,8 +6,18 @@ interface Props {
   prediction: PredictionResult
 }
 
+const clamp01 = (x: number) => Math.max(0, Math.min(1, x))
+const fmtLeft = (secs: number) => (secs <= 30 ? 'now' : `${Math.round(secs / 60)} min`)
+
 export function StatusCard({ prediction }: Props) {
-  const { state, confidence, currentWindow, upcomingWindows, dataAgeSeconds } = prediction
+  const { state, currentWindow, upcomingWindows, dataAgeSeconds } = prediction
+
+  // Live clock — re-render every 30s so the countdown ticks down on its own.
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 30000)
+    return () => clearInterval(id)
+  }, [])
 
   const isOpen       = state === 'OPEN'
   const isClosed     = state === 'CLOSED'
@@ -18,12 +29,26 @@ export function StatusCard({ prediction }: Props) {
 
   const nextWindow  = currentWindow ?? upcomingWindows[0] ?? null
 
+  // Countdown to the next state change (replaces the old confidence %).
+  // CLOSED  → time until it reopens (bar empties across the closure).
+  // OPEN    → time until it closes (bar empties across a 30-min horizon).
+  let countdown: { label: string; secs: number; frac: number } | null = null
+  if (isClosed && currentWindow) {
+    const total  = (currentWindow.openAt.getTime() - currentWindow.closeAt.getTime()) / 1000
+    const remain = Math.max(0, (currentWindow.openAt.getTime() - now.getTime()) / 1000)
+    countdown = { label: 'Time until it reopens', secs: remain, frac: total > 0 ? clamp01(remain / total) : 0 }
+  } else if (nextWindow) {
+    const HORIZON = 30 * 60
+    const remain  = Math.max(0, (nextWindow.closeAt.getTime() - now.getTime()) / 1000)
+    countdown = { label: 'Time until it closes', secs: remain, frac: clamp01(remain / HORIZON) }
+  }
+
   // Service window is 08:00–20:00 IST; data refreshes every 30 min in-window.
   // Warn only when data is clearly stale (>45 min), and word it based on whether
   // we're inside service hours (delayed refresh) or outside (updates paused).
   const istHour = Number(
     new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false })
-      .format(new Date())
+      .format(now)
   )
   const inServiceWindow = istHour >= 8 && istHour < 20
   const isStale = dataAgeSeconds > 2700
@@ -83,21 +108,40 @@ export function StatusCard({ prediction }: Props) {
       </div>
       <div className="text-xs text-[#5E7090] mt-1">{subText}</div>
 
-      {/* Confidence bar */}
-      <div className="mt-4 flex items-center gap-3">
-        <div className="flex-1 h-1 bg-[#3A4F6A] rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full transition-all duration-700"
-            style={{ width: `${confidence}%`, background: barColor }}
-          />
+      {/* Countdown bar — time until the next open/close change (ticks live) */}
+      {countdown ? (
+        <div className="mt-4">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-medium tracking-widest uppercase text-[#5E7090]">
+              {countdown.label}
+            </span>
+            <span
+              className="text-[15px] font-semibold"
+              style={{ fontFamily: "'JetBrains Mono', monospace", color: isOpen ? '#00C896' : '#F5A623' }}
+            >
+              {fmtLeft(countdown.secs)}
+            </span>
+          </div>
+          <div className="h-1.5 bg-[#2A3A55] rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{ width: `${Math.round(countdown.frac * 100)}%`, background: barColor }}
+            />
+          </div>
         </div>
-        <span
-          className="text-[11px] min-w-[36px] text-right"
-          style={{ fontFamily: "'JetBrains Mono', monospace", color: '#5E7090' }}
-        >
-          {confidence}%
-        </span>
-      </div>
+      ) : (
+        <div className="mt-4 flex items-center gap-3">
+          <div className="flex-1 h-1.5 bg-[#2A3A55] rounded-full overflow-hidden">
+            <div className="h-full rounded-full" style={{ width: '100%', background: '#00C896' }} />
+          </div>
+          <span
+            className="text-[11px] text-[#5E7090] whitespace-nowrap"
+            style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          >
+            no trains within the hour
+          </span>
+        </div>
+      )}
 
       {/* Two info cells */}
       <div className="grid grid-cols-2 gap-2.5 mt-4">
