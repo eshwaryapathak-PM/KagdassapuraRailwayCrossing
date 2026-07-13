@@ -3,6 +3,14 @@
     "stationCode": "BYPL",
     "trains": [
       {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "19:40",
+        "expectedDepartureTime": "2026-07-13T19:52:00+05:30",
+        "delayMinutes": 12
+      },
+      {
         "trainNo": "66583",
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "scheduled",
@@ -11,26 +19,26 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-13T10:00:54Z"
+    "fetchedAt": "2026-07-13T10:30:54Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "66564",
-        "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "not-started",
-        "scheduledDepartureTime": "16:01",
-        "expectedDepartureTime": "2026-07-13T16:01:00+05:30",
-        "delayMinutes": 0
-      },
-      {
         "trainNo": "66585",
         "trainName": "Yesvantpur- Hosur MEMU",
         "status": "upcoming",
         "scheduledDepartureTime": "15:43",
-        "expectedDepartureTime": "2026-07-13T16:05:00+05:30",
-        "delayMinutes": 22
+        "expectedDepartureTime": "2026-07-13T16:08:00+05:30",
+        "delayMinutes": 25
+      },
+      {
+        "trainNo": "66564",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "upcoming",
+        "scheduledDepartureTime": "16:01",
+        "expectedDepartureTime": "2026-07-13T16:11:00+05:30",
+        "delayMinutes": 10
       },
       {
         "trainNo": "16211",
@@ -53,8 +61,8 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-13T19:00:00+05:30",
-        "delayMinutes": 0
+        "expectedDepartureTime": "2026-07-13T19:12:00+05:30",
+        "delayMinutes": 12
       },
       {
         "trainNo": "66583",
@@ -65,7 +73,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-13T10:00:54Z"
+    "fetchedAt": "2026-07-13T10:30:54Z"
   },
-  "generatedAt": "2026-07-13T10:00:54Z"
+  "generatedAt": "2026-07-13T10:30:54Z"
 }
