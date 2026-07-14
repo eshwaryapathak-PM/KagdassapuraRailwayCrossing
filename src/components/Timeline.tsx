@@ -5,6 +5,32 @@ interface Props {
   prediction: PredictionResult
 }
 
+// "3 – 4 PM" style label for an hour bucket (h = 0–23, local/IST time).
+function hourLabel(h: number): string {
+  const h12 = (x: number) => x % 12 || 12
+  const period = (x: number) => (x % 24 < 12 ? 'AM' : 'PM')
+  const p1 = period(h)
+  const p2 = period(h + 1)
+  return p1 === p2
+    ? `${h12(h)} – ${h12(h + 1)} ${p2}`
+    : `${h12(h)} ${p1} – ${h12(h + 1)} ${p2}`
+}
+
+// Group the (already time-sorted) trains into consecutive hour buckets by crossing time.
+function groupByHour(trains: ApproachingTrain[]) {
+  const groups: { hour: number; label: string; trains: ApproachingTrain[] }[] = []
+  for (const t of trains) {
+    const h = t.crossingAt.getHours()
+    const last = groups[groups.length - 1]
+    if (!last || last.hour !== h) {
+      groups.push({ hour: h, label: hourLabel(h), trains: [t] })
+    } else {
+      last.trains.push(t)
+    }
+  }
+  return groups
+}
+
 export function Timeline({ prediction }: Props) {
   const trains = prediction.scheduleTrains
 
@@ -31,9 +57,22 @@ export function Timeline({ prediction }: Props) {
         </span>
       </div>
 
-      <div className="space-y-2.5">
-        {trains.map((t) => (
-          <TrainScheduleRow key={t.trainNo} t={t} />
+      <div className="space-y-5">
+        {groupByHour(trains).map((g) => (
+          <div key={g.hour}>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[11px] font-semibold text-[#C8D6E8]">{g.label}</span>
+              <span className="text-[10px] text-[#3A4F6A]">
+                {g.trains.length} train{g.trains.length > 1 ? 's' : ''}
+              </span>
+              <div className="flex-1 h-px bg-[#243247]" />
+            </div>
+            <div className="space-y-2.5">
+              {g.trains.map((t) => (
+                <TrainScheduleRow key={t.trainNo} t={t} />
+              ))}
+            </div>
+          </div>
         ))}
       </div>
 
