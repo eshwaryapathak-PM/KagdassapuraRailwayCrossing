@@ -103,9 +103,10 @@ jobs:
               -H "Accept: application/json" \
               --connect-timeout 10 \
               --max-time 25 \
-              --retry 2 \
-              --retry-delay 2 \
               "$url" 2>"$errfile")
+              # No --retry: keep exactly 1 request per station (2 per run) so we
+              # never amplify usage against RailRadar's 50/day free quota. A
+              # transient failure just skips this cycle; the next run recovers.
             local curl_exit=$?
 
             echo "    curl exit code : $curl_exit"
