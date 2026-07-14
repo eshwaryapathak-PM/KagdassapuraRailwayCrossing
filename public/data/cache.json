@@ -15,7 +15,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-14T09:30:56Z"
+    "fetchedAt": "2026-07-14T10:00:57Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -25,12 +25,12 @@
         "trainName": "Yesvantpur- Hosur MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "15:43",
-        "expectedDepartureTime": "2026-07-14T15:43:00+05:30",
+        "expectedDepartureTime": "2026-07-14T15:45:00+05:30",
         "scheduledArrivalTime": "15:42",
-        "expectedArrivalTime": "2026-07-14T15:42:00+05:30",
+        "expectedArrivalTime": "2026-07-14T15:44:00+05:30",
         "source": "YPR",
         "destination": "HSRA",
-        "delayMinutes": 0
+        "delayMinutes": 2
       },
       {
         "trainNo": "66564",
@@ -85,15 +85,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-14T19:52:00+05:30",
+        "expectedDepartureTime": "2026-07-14T19:22:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-14T19:51:00+05:30",
+        "expectedArrivalTime": "2026-07-14T19:21:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 52
+        "delayMinutes": 22
       }
     ],
-    "fetchedAt": "2026-07-14T09:30:56Z"
+    "fetchedAt": "2026-07-14T10:00:57Z"
   },
-  "generatedAt": "2026-07-14T09:30:56Z"
+  "generatedAt": "2026-07-14T10:00:57Z"
 }
