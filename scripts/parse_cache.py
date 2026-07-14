@@ -65,6 +65,14 @@ def extract_trains(raw, label):
                 or sched
             ).strip()
 
+            # Scheduled arrival at the station (clock time) + delay-adjusted arrival
+            sched_arr = str(stop.get("arrival") or "").strip()
+            exp_arr = str(live.get("expectedArrivalTime") or sched_arr).strip()
+
+            # Train origin/destination station codes (for "coming from → going to")
+            src = str(t.get("source") or "").strip()
+            dst = str(t.get("destination") or "").strip()
+
             # Delay in minutes (RailRadar: live.delayMinutes)
             delay_raw = live.get("delayMinutes")
             if delay_raw is None:
@@ -92,6 +100,10 @@ def extract_trains(raw, label):
                 "status": status,
                 "scheduledDepartureTime": sched,
                 "expectedDepartureTime": exp,
+                "scheduledArrivalTime": sched_arr,
+                "expectedArrivalTime": exp_arr,
+                "source": src,
+                "destination": dst,
                 "delayMinutes": delay,
             })
         except Exception as e:

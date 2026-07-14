@@ -88,6 +88,11 @@ function buildApproachingTrains(
         crossingAt: etaDate,
         gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
         sourceStation,
+        sourceCode: direction === 'AtoB' ? crossing.stationA.code : crossing.stationB.code,
+        schedArr: entry.scheduledArrivalTime ?? '',
+        schedDep: entry.scheduledDepartureTime ?? '',
+        origin: entry.source ?? '',
+        destination: entry.destination ?? '',
         delayMinutes: entry.delayMinutes ?? 0,
       })
     }

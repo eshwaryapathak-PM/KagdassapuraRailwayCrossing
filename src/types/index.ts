@@ -30,6 +30,10 @@ export interface LiveBoardEntry {
   status: TrainStatus
   scheduledDepartureTime: string   // ISO or HH:mm
   expectedDepartureTime: string
+  scheduledArrivalTime?: string    // HH:mm at the station
+  expectedArrivalTime?: string     // ISO or HH:mm
+  source?: string                  // origin station code
+  destination?: string             // destination station code
   delayMinutes: number
 }
 
@@ -71,7 +75,12 @@ export interface ApproachingTrain {
   etaSeconds: number            // seconds until crossing (based on delay-adjusted departure)
   crossingAt: Date              // clock time it reaches the crossing (delay-adjusted)
   gateClosed: boolean
-  sourceStation: string
+  sourceStation: string         // name of the station it departs from (BYPL or BLRR side)
+  sourceCode: string            // 'BYPL' or 'BLRR'
+  schedArr: string              // scheduled arrival at that station (HH:mm)
+  schedDep: string              // scheduled departure from that station (HH:mm)
+  origin: string                // train's origin station code
+  destination: string           // train's destination station code
   delayMinutes: number          // live delay; ETA already accounts for it
 }
 
