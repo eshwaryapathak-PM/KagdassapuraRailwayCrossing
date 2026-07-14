@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-14T07:00:56Z"
+    "fetchedAt": "2026-07-14T07:30:53Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -22,9 +22,17 @@
         "scheduledDepartureTime": "16:01",
         "expectedDepartureTime": "2026-07-14T16:01:00+05:30",
         "delayMinutes": 0
+      },
+      {
+        "trainNo": "16211",
+        "trainName": "Salem Express",
+        "status": "not-started",
+        "scheduledDepartureTime": "16:36",
+        "expectedDepartureTime": "2026-07-14T16:36:00+05:30",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-14T07:00:56Z"
+    "fetchedAt": "2026-07-14T07:30:53Z"
   },
-  "generatedAt": "2026-07-14T07:00:56Z"
+  "generatedAt": "2026-07-14T07:30:53Z"
 }
