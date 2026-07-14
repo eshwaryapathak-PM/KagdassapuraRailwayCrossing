@@ -111,7 +111,13 @@ function Inner() {
         )}
         {tab === 'map' && <CrossingMap prediction={prediction} selectedTrainNo={selectedTrainNo} />}
       </main>
-      <BottomNav active={tab} onChange={setTab} />
+      <BottomNav
+        active={tab}
+        onChange={(t) => {
+          setSelectedTrainNo(null) // nav-bar navigation shows the next train, not a stale pick
+          setTab(t)
+        }}
+      />
     </div>
   )
 }

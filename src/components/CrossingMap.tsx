@@ -4,7 +4,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { KAGGADASAPURA } from '../lib/config'
 import type { ApproachingTrain, PredictionResult } from '../types'
-import { formatTime } from '../lib/prediction'
+import { formatTime, formatEta } from '../lib/prediction'
 
 // Fix leaflet default icon paths broken by bundlers
 delete (L.Icon.Default.prototype as any)._getIconUrl
@@ -43,12 +43,14 @@ function DarkTiles() {
   )
 }
 
-// Pan/zoom to the estimated train position whenever it changes.
-function Recenter({ pos }: { pos: [number, number] | null }) {
+// Frame the relevant points (segment when a train is en route, else whole layout).
+function FitBounds({ points }: { points: [number, number][] }) {
   const map = useMap()
+  const key = JSON.stringify(points)
   useEffect(() => {
-    if (pos) map.setView(pos, 14, { animate: true })
-  }, [pos?.[0], pos?.[1]]) // eslint-disable-line react-hooks/exhaustive-deps
+    if (points.length >= 2) map.fitBounds(points as any, { padding: [45, 45], maxZoom: 15, animate: true })
+    else if (points.length === 1) map.setView(points[0], 14, { animate: true })
+  }, [key]) // eslint-disable-line react-hooks/exhaustive-deps
   return null
 }
 
@@ -68,16 +70,23 @@ const lerp = (a: [number, number], b: [number, number], f: number): [number, num
 ]
 
 export function CrossingMap({ prediction, selectedTrainNo }: Props) {
-  // Prefer the tapped train (from the 3-hour schedule); else the next one.
+  // Tapped train, else the very next crossing train.
   const selected = selectedTrainNo
     ? prediction.scheduleTrains.find((t) => t.trainNo === selectedTrainNo)
     : undefined
-  const train: ApproachingTrain | null = selected ?? prediction.approachingTrains[0] ?? null
+  const train: ApproachingTrain | null =
+    selected ?? prediction.scheduleTrains[0] ?? prediction.approachingTrains[0] ?? null
 
-  // Estimated position: fraction of the way from the train's source station to the crossing.
+  // We can only estimate a position once the train has DEPARTED its station and is
+  // on the source→crossing stretch (progress > 0). Before that its live location is
+  // unknown (it's still out on the network), so we show no dot.
   const src = train ? (train.direction === 'AtoB' ? BYPL_COORD : BLRR_COORD) : null
+  const enRoute = !!train && train.progressToCrossing > 0
   const f = train ? Math.max(0, Math.min(1, train.progressToCrossing)) : 0
-  const trainPos: [number, number] | null = train && src ? lerp(src, CROSS, f) : null
+  const trainPos: [number, number] | null = enRoute && src ? lerp(src, CROSS, f) : null
+
+  const boundsPoints: [number, number][] =
+    enRoute && src ? [src, CROSS] : [BYPL_COORD, CROSS, BLRR_COORD]
 
   return (
     <div className="p-4">
@@ -87,15 +96,14 @@ export function CrossingMap({ prediction, selectedTrainNo }: Props) {
 
       <div className="rounded-xl overflow-hidden border border-[#3A4F6A]" style={{ height: 280 }}>
         <MapContainer
-          center={trainPos ?? CROSS}
+          center={CROSS}
           zoom={13}
           style={{ height: '100%', width: '100%', background: '#0A0F1E' }}
           zoomControl={false}
         >
           <DarkTiles />
-          <Recenter pos={trainPos} />
+          <FitBounds points={boundsPoints} />
 
-          {/* Schematic line: BYPL — crossing — BLRR (straight, not exact track) */}
           <Polyline positions={[BYPL_COORD, CROSS, BLRR_COORD]} pathOptions={{ color: '#3A4F6A', weight: 2, dashArray: '4 6' }} />
 
           <Marker position={CROSS} icon={crossingIcon}>
@@ -154,16 +162,16 @@ export function CrossingMap({ prediction, selectedTrainNo }: Props) {
               {train.etaSeconds < 0 ? 'crossed' : `~${Math.max(0, Math.round(train.etaSeconds / 60))} min`}
             </div>
           </div>
+
           <div className="text-[11px] text-[#7C8CA5] mt-2" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-            {f >= 1
-              ? 'at / just past the crossing'
-              : f <= 0
-              ? `still around ${train.sourceCode}`
-              : `est. ${Math.round(f * 100)}% of the way from ${train.sourceCode} to the crossing`}
-            {' · crosses ~'}{formatTime(train.crossingAt)}
+            {enRoute
+              ? `est. ${Math.round(f * 100)}% of the way from ${train.sourceCode} to the crossing · crosses ~${formatTime(train.crossingAt)}`
+              : `Not departed yet — leaves ${train.sourceCode}${train.schedDep ? ` ~${train.schedDep}` : ''}, crosses ~${formatTime(train.crossingAt)} (in ${formatEta(train.etaSeconds)})`}
           </div>
           <div className="text-[10px] text-[#3A4F6A] mt-1.5">
-            Estimated from schedule + delay — not live GPS.
+            {enRoute
+              ? 'Estimated from schedule + delay — not live GPS.'
+              : 'Live position estimate begins once it departs the station — not GPS.'}
           </div>
         </div>
       ) : (
