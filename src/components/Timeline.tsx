@@ -5,15 +5,10 @@ interface Props {
   prediction: PredictionResult
 }
 
-// "3 – 4 PM" style label for an hour bucket (h = 0–23, local/IST time).
+// "15:00 – 16:00" style label for an hour bucket (h = 0–23, local/IST time).
 function hourLabel(h: number): string {
-  const h12 = (x: number) => x % 12 || 12
-  const period = (x: number) => (x % 24 < 12 ? 'AM' : 'PM')
-  const p1 = period(h)
-  const p2 = period(h + 1)
-  return p1 === p2
-    ? `${h12(h)} – ${h12(h + 1)} ${p2}`
-    : `${h12(h)} ${p1} – ${h12(h + 1)} ${p2}`
+  const pad = (x: number) => String(x % 24).padStart(2, '0')
+  return `${pad(h)}:00 – ${pad(h + 1)}:00`
 }
 
 // Group the (already time-sorted) trains into consecutive hour buckets by crossing time.
@@ -40,7 +35,7 @@ export function Timeline({ prediction }: Props) {
         No trains crossing in the next 3 hours.
         <br />
         <span className="text-[11px] text-[#3A4F6A] block mt-1">
-          Updated every 30 minutes (8 AM–8 PM IST)
+          Updated every 30 minutes (08:00–20:00 IST)
         </span>
       </div>
     )

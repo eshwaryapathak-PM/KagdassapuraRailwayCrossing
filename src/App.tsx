@@ -53,7 +53,7 @@ function Inner() {
               style={{ fontFamily: "'JetBrains Mono', monospace" }}>
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full lamp-open" style={{ background: '#00C896' }} />
-                Auto-refresh · 30 min · 8AM–8PM IST
+                Auto-refresh · 30 min · 08:00–20:00 IST
               </div>
               <div>
                 Updated: {prediction.lastUpdated.toLocaleTimeString('en-IN', {
@@ -67,7 +67,7 @@ function Inner() {
             <div className="mx-4 mt-2 text-[10px] leading-relaxed text-[#3A4F6A]"
               style={{ fontFamily: "'JetBrains Mono', monospace" }}>
               To stay within the free train-data API limit, this board auto-refreshes
-              every 30 min between 8 AM and 8 PM IST. There is no manual refresh.
+              every 30 min between 08:00 and 20:00 IST. There is no manual refresh.
             </div>
 
             <details className="mx-4 mt-4 rounded-xl border border-[#243247] bg-[#131C2E] overflow-hidden">
@@ -90,7 +90,7 @@ function Inner() {
                   5 minutes before a train passes and reopens ~2 minutes after.
                 </p>
                 <p>
-                  Data refreshes every 30 minutes (8 AM–8 PM IST) to stay within a free API
+                  Data refreshes every 30 minutes (08:00–20:00 IST) to stay within a free API
                   limit. These are <span className="text-[#C8D6E8]">best-effort estimates</span>,
                   not official railway signals — always look before you cross.
                 </p>

@@ -195,7 +195,7 @@ export function StatusCard({ prediction }: Props) {
         </div>
       )}
 
-      {/* Staleness note — refresh runs every 30 min inside the 8AM–8PM IST window */}
+      {/* Staleness note — refresh runs every 30 min inside the 08:00–20:00 IST window */}
       {isStale && (
         <div className="mt-3 text-[10px] flex flex-col gap-1.5">
           <div className="flex items-center gap-1.5" style={{ color: inServiceWindow ? '#F5A623' : '#5E7090' }}>
@@ -203,7 +203,7 @@ export function StatusCard({ prediction }: Props) {
             <span>
               {inServiceWindow
                 ? `Data ${Math.floor(dataAgeSeconds / 60)} min old — a scheduled refresh may have been delayed`
-                : 'Live updates pause 8 PM–8 AM IST — showing the last available data'}
+                : 'Live updates pause 20:00–08:00 IST — showing the last available data'}
             </span>
           </div>
           <div className="text-[#5E7090] pl-3.5">
@@ -213,7 +213,7 @@ export function StatusCard({ prediction }: Props) {
               month: 'short',
               hour: '2-digit',
               minute: '2-digit',
-              hour12: true
+              hour12: false
             })} (IST)
           </div>
         </div>
