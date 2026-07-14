@@ -86,6 +86,7 @@ function buildApproachingTrains(
         direction,
         etaSeconds,
         crossingAt: etaDate,
+        progressToCrossing: transitSeconds > 0 ? 1 - etaSeconds / transitSeconds : 1,
         gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
         sourceStation,
         sourceCode: direction === 'AtoB' ? crossing.stationA.code : crossing.stationB.code,

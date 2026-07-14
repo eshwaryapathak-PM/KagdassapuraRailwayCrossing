@@ -15,6 +15,7 @@ type Tab = 'status' | 'route' | 'timeline' | 'map'
 
 function Inner() {
   const [tab, setTab] = useState<Tab>('status')
+  const [selectedTrainNo, setSelectedTrainNo] = useState<string | null>(null)
   const { prediction, isLoading, isError, error, refetch } = usePrediction()
 
   if (isLoading) {
@@ -99,8 +100,16 @@ function Inner() {
           </>
         )}
         {tab === 'route' && <RouteView prediction={prediction} />}
-        {tab === 'timeline' && <Timeline prediction={prediction} />}
-        {tab === 'map' && <CrossingMap prediction={prediction} />}
+        {tab === 'timeline' && (
+          <Timeline
+            prediction={prediction}
+            onSelectTrain={(no) => {
+              setSelectedTrainNo(no)
+              setTab('map')
+            }}
+          />
+        )}
+        {tab === 'map' && <CrossingMap prediction={prediction} selectedTrainNo={selectedTrainNo} />}
       </main>
       <BottomNav active={tab} onChange={setTab} />
     </div>

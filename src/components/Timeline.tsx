@@ -3,6 +3,7 @@ import { formatTime, formatEta } from '../lib/prediction'
 
 interface Props {
   prediction: PredictionResult
+  onSelectTrain: (trainNo: string) => void
 }
 
 // "15:00 – 16:00" style label for an hour bucket (h = 0–23, local/IST time).
@@ -26,7 +27,7 @@ function groupByHour(trains: ApproachingTrain[]) {
   return groups
 }
 
-export function Timeline({ prediction }: Props) {
+export function Timeline({ prediction, onSelectTrain }: Props) {
   const trains = prediction.scheduleTrains
 
   if (trains.length === 0) {
@@ -64,7 +65,7 @@ export function Timeline({ prediction }: Props) {
             </div>
             <div className="space-y-2.5">
               {g.trains.map((t) => (
-                <TrainScheduleRow key={t.trainNo} t={t} />
+                <TrainScheduleRow key={t.trainNo} t={t} onSelect={onSelectTrain} />
               ))}
             </div>
           </div>
@@ -79,10 +80,14 @@ export function Timeline({ prediction }: Props) {
   )
 }
 
-function TrainScheduleRow({ t }: { t: ApproachingTrain }) {
+function TrainScheduleRow({ t, onSelect }: { t: ApproachingTrain; onSelect: (trainNo: string) => void }) {
   const barColor = t.direction === 'AtoB' ? '#00C896' : '#5E7090'
   return (
-    <div className="rounded-xl border border-[#3A4F6A] bg-[#1A2332] px-3.5 py-3 flex gap-3">
+    <button
+      type="button"
+      onClick={() => onSelect(t.trainNo)}
+      className="w-full text-left rounded-xl border border-[#3A4F6A] bg-[#1A2332] px-3.5 py-3 flex gap-3 hover:border-[#5E7090] transition-colors active:opacity-80"
+    >
       <div className="w-1 rounded-full flex-shrink-0" style={{ background: barColor }} />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
@@ -122,7 +127,11 @@ function TrainScheduleRow({ t }: { t: ApproachingTrain }) {
             {t.etaSeconds < 0 ? 'passed' : `in ${formatEta(t.etaSeconds)}`}
           </span>
         </div>
+
+        <div className="text-[10px] text-[#3A4F6A] mt-1.5 flex items-center gap-1">
+          <span aria-hidden>📍</span> tap to see it on the map
+        </div>
       </div>
-    </div>
+    </button>
   )
 }

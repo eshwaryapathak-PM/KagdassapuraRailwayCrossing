@@ -74,6 +74,7 @@ export interface ApproachingTrain {
   direction: TrainDirection
   etaSeconds: number            // seconds until crossing (based on delay-adjusted departure)
   crossingAt: Date              // clock time it reaches the crossing (delay-adjusted)
+  progressToCrossing: number    // estimated 0=at source station … 1=at crossing (>1 past it)
   gateClosed: boolean
   sourceStation: string         // name of the station it departs from (BYPL or BLRR side)
   sourceCode: string            // 'BYPL' or 'BLRR'
