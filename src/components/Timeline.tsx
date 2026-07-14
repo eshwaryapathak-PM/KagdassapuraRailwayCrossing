@@ -6,12 +6,12 @@ interface Props {
 }
 
 export function Timeline({ prediction }: Props) {
-  const trains = prediction.approachingTrains
+  const trains = prediction.scheduleTrains
 
   if (trains.length === 0) {
     return (
       <div className="p-4 text-center text-[#5E7090] text-sm pt-12">
-        No trains crossing in the next hour.
+        No trains crossing in the next 3 hours.
         <br />
         <span className="text-[11px] text-[#3A4F6A] block mt-1">
           Updated every 30 minutes (8 AM–8 PM IST)
@@ -22,8 +22,13 @@ export function Timeline({ prediction }: Props) {
 
   return (
     <div className="p-4">
-      <div className="text-[10px] font-medium tracking-widest uppercase text-[#5E7090] mb-4">
-        Trains crossing · next hour
+      <div className="flex items-center justify-between mb-4">
+        <span className="text-[10px] font-medium tracking-widest uppercase text-[#5E7090]">
+          Trains crossing · next 3 hours
+        </span>
+        <span className="text-[10px] text-[#3A4F6A]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+          {trains.length}
+        </span>
       </div>
 
       <div className="space-y-2.5">

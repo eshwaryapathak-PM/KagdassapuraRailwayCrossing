@@ -96,7 +96,8 @@ export interface PredictionResult {
   confidence: number            // 0–100
   currentWindow: GateWindow | null
   upcomingWindows: GateWindow[]
-  approachingTrains: ApproachingTrain[]
+  approachingTrains: ApproachingTrain[]   // next hour (Status)
+  scheduleTrains: ApproachingTrain[]       // next 3 hours (Schedule tab)
   lastUpdated: Date
   dataAgeSeconds: number
 }

@@ -196,6 +196,14 @@ export function runPrediction(
     PREDICTION_CONFIG.approachingWindowMinutes
   )
 
+  // Longer list for the Schedule tab — same fetched board data, wider horizon.
+  const scheduleTrains = buildApproachingTrains(
+    cache,
+    crossing,
+    now,
+    PREDICTION_CONFIG.scheduleWindowMinutes
+  )
+
   const allWindows = buildGateWindows(approachingTrains, crossing, now)
   const currentWindow = allWindows.find(w => w.isCurrent) ?? null
   const upcomingWindows = allWindows.filter(w => !w.isCurrent && isAfter(w.closeAt, now))
@@ -219,6 +227,7 @@ export function runPrediction(
     currentWindow,
     upcomingWindows,
     approachingTrains,
+    scheduleTrains,
     lastUpdated: generatedAt,
     dataAgeSeconds,
   }
