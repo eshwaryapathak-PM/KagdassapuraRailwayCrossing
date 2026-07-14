@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-14T08:30:09Z"
+    "fetchedAt": "2026-07-14T08:30:58Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -13,10 +13,6 @@
         "status": "not-started",
         "scheduledDepartureTime": "15:43",
         "expectedDepartureTime": "2026-07-14T15:43:00+05:30",
-        "scheduledArrivalTime": "15:42",
-        "expectedArrivalTime": "2026-07-14T15:42:00+05:30",
-        "source": "YPR",
-        "destination": "HSRA",
         "delayMinutes": 0
       },
       {
@@ -25,10 +21,6 @@
         "status": "not-started",
         "scheduledDepartureTime": "16:01",
         "expectedDepartureTime": "2026-07-14T16:01:00+05:30",
-        "scheduledArrivalTime": "16:00",
-        "expectedArrivalTime": "2026-07-14T16:00:00+05:30",
-        "source": "HSRA",
-        "destination": "YPR",
         "delayMinutes": 0
       },
       {
@@ -37,14 +29,10 @@
         "status": "not-started",
         "scheduledDepartureTime": "16:36",
         "expectedDepartureTime": "2026-07-14T16:36:00+05:30",
-        "scheduledArrivalTime": "16:35",
-        "expectedArrivalTime": "2026-07-14T16:35:00+05:30",
-        "source": "YPR",
-        "destination": "SA",
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-14T08:30:09Z"
+    "fetchedAt": "2026-07-14T08:30:58Z"
   },
-  "generatedAt": "2026-07-14T08:30:09Z"
+  "generatedAt": "2026-07-14T08:30:58Z"
 }
