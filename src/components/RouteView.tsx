@@ -63,8 +63,8 @@ export function RouteView({ prediction }: { prediction: PredictionResult }) {
       if (!r.ok) throw new Error(`traffic ${r.status}`)
       return r.json()
     },
-    refetchInterval: 90_000,
-    staleTime: 60_000,
+    refetchInterval: 60_000,
+    staleTime: 55_000,
     retry: 1,
   })
 

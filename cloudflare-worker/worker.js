@@ -48,7 +48,7 @@ async function dispatch(env) {
 
 // ── Live traffic (TomTom) ────────────────────────────────────────────────────
 // Driving time (with live traffic) from the two approach landmarks to the gate.
-// Needs a Worker secret TOMTOM_KEY (free tier). Cached 2 min so many visitors
+// Needs a Worker secret TOMTOM_KEY (free tier). Cached 1 min so many visitors
 // share one upstream call, keeping us well inside TomTom's free daily limit.
 const GATE = '12.9836831,77.679778'
 const ROUTES = {
@@ -98,11 +98,11 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
 
-    // ── Live traffic endpoint (CORS-enabled, 3-min edge cache) ───────────────
+    // ── Live traffic endpoint (CORS-enabled, 1-min edge cache) ───────────────
     if (url.pathname === '/traffic') {
       const cache = caches.default
       // Fixed key (ignores the client's ?t= cache-buster) so all callers share
-      // one cached upstream result for ~2 min.
+      // one cached upstream result for ~1 min.
       const cacheKey = new Request(new URL('/traffic', url.origin).toString(), { method: 'GET' })
       let hit = await cache.match(cacheKey)
       if (!hit) {
@@ -110,7 +110,7 @@ export default {
         hit = new Response(JSON.stringify(data), {
           headers: {
             'Content-Type': 'application/json',
-            'Cache-Control': 'public, max-age=120',
+            'Cache-Control': 'public, max-age=60',
           },
         })
         ctx.waitUntil(cache.put(cacheKey, hit.clone()))
