@@ -1,39 +1,50 @@
 {
   "stationA": {
     "stationCode": "BYPL",
-    "trains": [
-      {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-15T20:30:00+05:30",
-        "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-15T20:29:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 50
-      }
-    ],
-    "fetchedAt": "2026-07-15T14:00:13Z"
+    "trains": [],
+    "fetchedAt": "2026-07-16T02:30:14Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
+        "trainNo": "66596",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "09:04",
+        "expectedDepartureTime": "2026-07-16T09:04:00+05:30",
+        "scheduledArrivalTime": "09:03",
+        "expectedArrivalTime": "2026-07-16T09:03:00+05:30",
+        "source": "HSRA",
+        "destination": "YPR",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
         "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-15T19:50:00+05:30",
-        "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-15T19:49:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 50
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-07-16T09:30:00+05:30",
+        "scheduledArrivalTime": "09:07",
+        "expectedArrivalTime": "2026-07-16T09:29:00+05:30",
+        "source": "SA",
+        "destination": "YPR",
+        "delayMinutes": 22
+      },
+      {
+        "trainNo": "66563",
+        "trainName": "Yesvantpur- Hosur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "11:26",
+        "expectedDepartureTime": "2026-07-16T11:26:00+05:30",
+        "scheduledArrivalTime": "11:25",
+        "expectedArrivalTime": "2026-07-16T11:25:00+05:30",
+        "source": "YPR",
+        "destination": "HSRA",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-15T14:00:13Z"
+    "fetchedAt": "2026-07-16T02:30:14Z"
   },
-  "generatedAt": "2026-07-15T14:00:13Z"
+  "generatedAt": "2026-07-16T02:30:14Z"
 }
