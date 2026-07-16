@@ -62,6 +62,14 @@ function isSouthbound(e: LiveBoardEntry): boolean | null {
   return null
 }
 
+// RailRadar sometimes reports a train as still "not departed" while its expected
+// time has already slipped into the past — the delay figure simply lags. We keep
+// such trains (flagged `overdue`) instead of assuming they've gone, but we do NOT
+// assert a closure from them: their window lands in the past, so the gate state is
+// untouched and they only surface as a soft "may cross any time" warning.
+const NOT_DEPARTED = new Set(['not-started', 'upcoming', 'scheduled'])
+const OVERDUE_GRACE_SECONDS = 45 * 60
+
 // ─── Build ApproachingTrain list ──────────────────────────────────────────────
 function buildApproachingTrains(
   cache: StaticCache,
@@ -92,7 +100,6 @@ function buildApproachingTrains(
     const south = guessed ?? !!pair.bypl // fall back to the old board assumption
 
     const direction: TrainDirection = south ? 'AtoB' : 'BtoA'
-    const transitSeconds = south ? transitA : transitB
     const sourceCode = south ? crossing.stationA.code : crossing.stationB.code
     const sourceStation = south ? crossing.stationA.name : crossing.stationB.name
 
@@ -101,11 +108,37 @@ function buildApproachingTrains(
     // Station AFTER it (arrival = back-compute, used only if that's all we have).
     const after = south ? pair.blrr : pair.bypl
 
+    // How far along the BYPL↔BLRR stretch the gate sits, measured from `before`.
+    const totalKm = crossing.distanceFromStationA + crossing.distanceFromStationB
+    const fracFromBefore =
+      (south ? crossing.distanceFromStationA : crossing.distanceFromStationB) / totalKm
+
+    let transitSeconds = south ? transitA : transitB // speed-model default
     let crossingAt: Date | null = null
-    if (before) {
+
+    // 1. BEST: this train is on BOTH boards, so use its OWN times across the
+    //    stretch instead of assuming a speed. Trains vary a lot here (a MEMU
+    //    does it in ~9 min; a terminating express is scheduled ~39 min), and
+    //    this also guarantees the crossing falls between the two known times.
+    if (before && after) {
+      const depT = before.expectedDepartureTime || before.scheduledDepartureTime
+      const arrT = after.expectedArrivalTime || after.scheduledArrivalTime
+      if (depT && arrT) {
+        const dep = parseTime(depT, now)
+        const runSeconds = differenceInSeconds(parseTime(arrT, now), dep)
+        if (runSeconds > 60 && runSeconds < 4 * 3600) {
+          transitSeconds = Math.round(runSeconds * fracFromBefore)
+          crossingAt = addSeconds(dep, transitSeconds)
+        }
+      }
+    }
+    // 2. Only the near-side board: speed model from its departure.
+    if (!crossingAt && before) {
       const t = before.expectedDepartureTime || before.scheduledDepartureTime
       if (t) crossingAt = addSeconds(parseTime(t, now), transitSeconds)
     }
+    // 3. Only the far-side board: back-compute from its arrival (it gets there
+    //    only after crossing).
     if (!crossingAt && after) {
       const t =
         after.expectedArrivalTime || after.scheduledArrivalTime ||
@@ -115,7 +148,14 @@ function buildApproachingTrains(
     if (!crossingAt) continue
 
     const etaSeconds = differenceInSeconds(crossingAt, now)
-    if (etaSeconds < -crossing.gateOpenAfterSeconds) continue
+    let overdue = false
+    if (etaSeconds < -crossing.gateOpenAfterSeconds) {
+      // Its time has passed. Only keep it if the board still says it hasn't
+      // departed (stale delay) — and even then only as a soft warning.
+      const notDeparted = NOT_DEPARTED.has((info.status ?? '').toLowerCase())
+      if (!(notDeparted && etaSeconds > -OVERDUE_GRACE_SECONDS)) continue
+      overdue = true
+    }
     if (etaSeconds > windowSeconds) continue
 
     const src = before ?? after
@@ -126,7 +166,8 @@ function buildApproachingTrains(
       etaSeconds,
       crossingAt,
       progressToCrossing: transitSeconds > 0 ? 1 - etaSeconds / transitSeconds : 1,
-      gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
+      overdue,
+      gateClosed: !overdue && etaSeconds <= crossing.gateCloseBeforeSeconds,
       sourceStation,
       sourceCode,
       schedArr: src?.scheduledArrivalTime ?? '',
@@ -230,7 +271,9 @@ export function runPrediction(
     PREDICTION_CONFIG.scheduleWindowMinutes
   )
 
-  const allWindows = buildGateWindows(approachingTrains, crossing, now)
+  // Overdue trains are excluded: their timing is unreliable, so they must never
+  // assert a gate closure — they only appear as a soft warning in the lists.
+  const allWindows = buildGateWindows(approachingTrains.filter(t => !t.overdue), crossing, now)
   const currentWindow = allWindows.find(w => w.isCurrent) ?? null
   const upcomingWindows = allWindows.filter(w => !w.isCurrent && isAfter(w.closeAt, now))
 

@@ -91,10 +91,15 @@ function TrainRow({ train, isFirst }: { train: ApproachingTrain; isFirst: boolea
           {formatTime(train.crossingAt)}
         </div>
         <div
-          className="text-[10px] text-[#5E7090] mt-1"
-          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+          className="text-[10px] mt-1"
+          style={{ fontFamily: "'JetBrains Mono', monospace", color: train.overdue ? '#F5A623' : '#5E7090' }}
         >
-          {isPast ? 'passed' : `in ${formatEta(train.etaSeconds)}`} · {train.direction === 'AtoB' ? '→ BLRR' : '← BYPL'}
+          {train.overdue
+            ? 'overdue · may cross any time'
+            : isPast
+            ? 'passed'
+            : `in ${formatEta(train.etaSeconds)}`}
+          {' · '}{train.direction === 'AtoB' ? '→ BLRR' : '← BYPL'}
         </div>
       </div>
 

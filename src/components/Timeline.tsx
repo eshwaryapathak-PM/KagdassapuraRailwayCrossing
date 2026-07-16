@@ -123,9 +123,13 @@ function TrainScheduleRow({ t, onSelect }: { t: ApproachingTrain; onSelect: (tra
           {t.schedArr && <span className="text-[#5E7090]">arr {t.schedArr}</span>}
           {t.schedDep && <span className="text-[#5E7090]">dep {t.schedDep}</span>}
           <span className="text-[#00C896]">→ crosses ~{formatTime(t.crossingAt)}</span>
-          <span className="text-[#3A4F6A]">
-            {t.etaSeconds < 0 ? 'passed' : `in ${formatEta(t.etaSeconds)}`}
-          </span>
+          {t.overdue ? (
+            <span className="text-[#F5A623]">⚠ overdue · may cross any time</span>
+          ) : (
+            <span className="text-[#3A4F6A]">
+              {t.etaSeconds < 0 ? 'passed' : `in ${formatEta(t.etaSeconds)}`}
+            </span>
+          )}
         </div>
 
         <div className="text-[10px] text-[#3A4F6A] mt-1.5 flex items-center gap-1">
