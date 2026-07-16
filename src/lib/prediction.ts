@@ -43,6 +43,25 @@ function parseTime(raw: string, referenceDate: Date): Date {
   return d
 }
 
+// ─── Stations SOUTH of the crossing (the Salem / Hosur side) ─────────────────
+// A gate-crossing train always travels between the Bengaluru side (BYPL and
+// beyond) and the Salem side (BLRR and beyond). Its TRUE direction therefore
+// comes from its origin/destination — NOT from which station board it appears
+// on. (A northbound train shows up on BYPL's board too, but it has already
+// crossed the gate by the time it gets there.)
+const SALEM_SIDE = new Set(['BLRR', 'CMLR', 'HSRA', 'DPJ', 'SA', 'KIK', 'OME', 'AEK'])
+
+// true  = southbound (Bengaluru → Salem): crosses AFTER departing BYPL
+// false = northbound (Salem → Bengaluru): crosses AFTER departing BLRR
+// null  = unknown
+function isSouthbound(e: LiveBoardEntry): boolean | null {
+  const dest = (e.destination ?? '').toUpperCase()
+  const src = (e.source ?? '').toUpperCase()
+  if (dest && SALEM_SIDE.has(dest)) return true
+  if (src && SALEM_SIDE.has(src)) return false
+  return null
+}
+
 // ─── Build ApproachingTrain list ──────────────────────────────────────────────
 function buildApproachingTrains(
   cache: StaticCache,
@@ -51,66 +70,72 @@ function buildApproachingTrains(
   windowMinutes: number
 ): ApproachingTrain[] {
   const windowSeconds = windowMinutes * 60
-  const results: ApproachingTrain[] = []
+  const transitA = kmToSeconds(crossing.distanceFromStationA) // BYPL ↔ crossing
+  const transitB = kmToSeconds(crossing.distanceFromStationB) // BLRR ↔ crossing
 
-  // Helper: process one station's board
-  const process = (
-    entries: LiveBoardEntry[],
-    direction: TrainDirection,
-    distanceKm: number,
-    sourceStation: string
-  ) => {
-    for (const entry of entries) {
-      if (entry.status === 'cancelled') continue
-
-      // Use expected time (accounts for delay) or fall back to scheduled
-      const timeStr = entry.expectedDepartureTime || entry.scheduledDepartureTime
-      if (!timeStr) continue
-
-      const departureTime = parseTime(timeStr, now)
-      // seconds from station departure until crossing
-      const transitSeconds = kmToSeconds(distanceKm)
-      const etaDate = addSeconds(departureTime, transitSeconds)
-      const etaSeconds = differenceInSeconds(etaDate, now)
-
-      // Only include trains within the approaching window (and not already past)
-      if (etaSeconds < -crossing.gateOpenAfterSeconds) continue
-      if (etaSeconds > windowSeconds) continue
-
-      // Avoid duplicates (same train can appear on both boards for double-tracking)
-      if (results.find(r => r.trainNo === entry.trainNo)) continue
-
-      results.push({
-        trainNo: entry.trainNo,
-        trainName: entry.trainName,
-        direction,
-        etaSeconds,
-        crossingAt: etaDate,
-        progressToCrossing: transitSeconds > 0 ? 1 - etaSeconds / transitSeconds : 1,
-        gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
-        sourceStation,
-        sourceCode: direction === 'AtoB' ? crossing.stationA.code : crossing.stationB.code,
-        schedArr: entry.scheduledArrivalTime ?? '',
-        schedDep: entry.scheduledDepartureTime ?? '',
-        origin: entry.source ?? '',
-        destination: entry.destination ?? '',
-        delayMinutes: entry.delayMinutes ?? 0,
-      })
-    }
+  // The same train can appear on both boards — merge by train number first.
+  const byNo = new Map<string, { bypl?: LiveBoardEntry; blrr?: LiveBoardEntry }>()
+  for (const e of cache.stationA.trains) {
+    if (e.trainNo) byNo.set(e.trainNo, { ...(byNo.get(e.trainNo) ?? {}), bypl: e })
+  }
+  for (const e of cache.stationB.trains) {
+    if (e.trainNo) byNo.set(e.trainNo, { ...(byNo.get(e.trainNo) ?? {}), blrr: e })
   }
 
-  process(
-    cache.stationA.trains,
-    'AtoB',
-    crossing.distanceFromStationA,
-    crossing.stationA.name
-  )
-  process(
-    cache.stationB.trains,
-    'BtoA',
-    crossing.distanceFromStationB,
-    crossing.stationB.name
-  )
+  const results: ApproachingTrain[] = []
+
+  for (const pair of byNo.values()) {
+    const info = pair.bypl ?? pair.blrr
+    if (!info || info.status === 'cancelled') continue
+
+    const guessed = isSouthbound(info)
+    const south = guessed ?? !!pair.bypl // fall back to the old board assumption
+
+    const direction: TrainDirection = south ? 'AtoB' : 'BtoA'
+    const transitSeconds = south ? transitA : transitB
+    const sourceCode = south ? crossing.stationA.code : crossing.stationB.code
+    const sourceStation = south ? crossing.stationA.name : crossing.stationB.name
+
+    // Station BEFORE the crossing for this direction (departure = predictive).
+    const before = south ? pair.bypl : pair.blrr
+    // Station AFTER it (arrival = back-compute, used only if that's all we have).
+    const after = south ? pair.blrr : pair.bypl
+
+    let crossingAt: Date | null = null
+    if (before) {
+      const t = before.expectedDepartureTime || before.scheduledDepartureTime
+      if (t) crossingAt = addSeconds(parseTime(t, now), transitSeconds)
+    }
+    if (!crossingAt && after) {
+      const t =
+        after.expectedArrivalTime || after.scheduledArrivalTime ||
+        after.expectedDepartureTime || after.scheduledDepartureTime
+      if (t) crossingAt = addSeconds(parseTime(t, now), -(south ? transitB : transitA))
+    }
+    if (!crossingAt) continue
+
+    const etaSeconds = differenceInSeconds(crossingAt, now)
+    if (etaSeconds < -crossing.gateOpenAfterSeconds) continue
+    if (etaSeconds > windowSeconds) continue
+
+    const src = before ?? after
+    results.push({
+      trainNo: info.trainNo,
+      trainName: info.trainName,
+      direction,
+      etaSeconds,
+      crossingAt,
+      progressToCrossing: transitSeconds > 0 ? 1 - etaSeconds / transitSeconds : 1,
+      gateClosed: etaSeconds <= crossing.gateCloseBeforeSeconds,
+      sourceStation,
+      sourceCode,
+      schedArr: src?.scheduledArrivalTime ?? '',
+      schedDep: src?.scheduledDepartureTime ?? '',
+      origin: info.source ?? '',
+      destination: info.destination ?? '',
+      delayMinutes: info.delayMinutes ?? 0,
+    })
+  }
 
   return results.sort((a, b) => a.etaSeconds - b.etaSeconds)
 }

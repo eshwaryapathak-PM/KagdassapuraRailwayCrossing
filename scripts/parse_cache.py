@@ -139,12 +139,24 @@ def main():
     #   2. it's in a small static allowlist of trains that RailRadar's
     #      /v1/trains/between/BYPL/BLRR endpoint confirms run the segment.
     # BLRR is a single-line (non-junction) station, so its board is kept as-is.
+    #   3. (best signal) its route runs to/from the Salem side — any train whose
+    #      origin OR destination is south of the gate must physically cross it.
+    #      This catches Salem-line trains that don't halt at BLRR, which the
+    #      board-matching test alone would wrongly drop.
+    SALEM_SIDE = {"BLRR", "CMLR", "HSRA", "DPJ", "SA", "KIK", "OME", "AEK"}
     STATIC_CROSSING_TRAINS = {"16529", "16530", "66583", "66584"}
     blrr_numbers = {t["trainNo"] for t in blrr_trains}
     allowed = blrr_numbers | STATIC_CROSSING_TRAINS
 
-    kept = [t for t in bypl_trains if t["trainNo"] in allowed]
-    dropped = [t for t in bypl_trains if t["trainNo"] not in allowed]
+    def crosses_gate(t):
+        return (
+            t["trainNo"] in allowed
+            or (t.get("source", "") or "").upper() in SALEM_SIDE
+            or (t.get("destination", "") or "").upper() in SALEM_SIDE
+        )
+
+    kept = [t for t in bypl_trains if crosses_gate(t)]
+    dropped = [t for t in bypl_trains if not crosses_gate(t)]
     print(f"[BYPL] gate filter: kept {len(kept)}/{len(bypl_trains)} crossing trains; "
           f"dropped {len(dropped)} junction-line trains")
     if dropped:
