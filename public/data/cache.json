@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-17T06:00:17Z"
+    "fetchedAt": "2026-07-17T06:30:13Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -10,17 +10,41 @@
       {
         "trainNo": "66563",
         "trainName": "Yesvantpur- Hosur MEMU",
-        "status": "upcoming",
+        "status": "at-station",
         "scheduledDepartureTime": "11:26",
-        "expectedDepartureTime": "2026-07-17T11:39:00+05:30",
+        "expectedDepartureTime": "2026-07-17T11:58:00+05:30",
         "scheduledArrivalTime": "11:25",
-        "expectedArrivalTime": "2026-07-17T11:38:00+05:30",
+        "expectedArrivalTime": "2026-07-17T11:57:00+05:30",
         "source": "YPR",
         "destination": "HSRA",
-        "delayMinutes": 13
+        "delayMinutes": 32
+      },
+      {
+        "trainNo": "66585",
+        "trainName": "Yesvantpur- Hosur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "15:43",
+        "expectedDepartureTime": "2026-07-17T15:43:00+05:30",
+        "scheduledArrivalTime": "15:42",
+        "expectedArrivalTime": "2026-07-17T15:42:00+05:30",
+        "source": "YPR",
+        "destination": "HSRA",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66564",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "16:01",
+        "expectedDepartureTime": "2026-07-17T16:01:00+05:30",
+        "scheduledArrivalTime": "16:00",
+        "expectedArrivalTime": "2026-07-17T16:00:00+05:30",
+        "source": "HSRA",
+        "destination": "YPR",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-17T06:00:17Z"
+    "fetchedAt": "2026-07-17T06:30:13Z"
   },
-  "generatedAt": "2026-07-17T06:00:17Z"
+  "generatedAt": "2026-07-17T06:30:13Z"
 }
