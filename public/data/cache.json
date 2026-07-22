@@ -3,49 +3,85 @@
     "stationCode": "BYPL",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-21T20:28:00+05:30",
-        "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-21T20:27:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 48
+        "trainNo": "16529",
+        "trainName": "Karaikal Express",
+        "status": "departed",
+        "scheduledDepartureTime": "07:39",
+        "expectedDepartureTime": "2026-07-22T07:58:00+05:30",
+        "scheduledArrivalTime": "07:38",
+        "expectedArrivalTime": "2026-07-22T07:57:00+05:30",
+        "source": "SMVB",
+        "destination": "KIK",
+        "delayMinutes": 19
+      },
+      {
+        "trainNo": "66584",
+        "trainName": "Dharmapuri - KSR Bengaluru MEMU",
+        "status": "departed",
+        "scheduledDepartureTime": "07:19",
+        "expectedDepartureTime": "2026-07-22T07:52:00+05:30",
+        "scheduledArrivalTime": "07:18",
+        "expectedArrivalTime": "2026-07-22T07:51:00+05:30",
+        "source": "DPJ",
+        "destination": "SBC",
+        "delayMinutes": 33
       }
     ],
-    "fetchedAt": "2026-07-21T14:01:13Z"
+    "fetchedAt": "2026-07-22T02:31:10Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
+        "trainNo": "16529",
+        "trainName": "Karaikal Express",
         "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-21T19:48:00+05:30",
-        "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-21T19:47:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 48
+        "scheduledDepartureTime": "07:49",
+        "expectedDepartureTime": "2026-07-22T08:08:00+05:30",
+        "scheduledArrivalTime": "07:48",
+        "expectedArrivalTime": "2026-07-22T08:07:00+05:30",
+        "source": "SMVB",
+        "destination": "KIK",
+        "delayMinutes": 19
       },
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "departed",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-21T19:18:00+05:30",
-        "scheduledArrivalTime": "18:54",
-        "expectedArrivalTime": "2026-07-21T19:17:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 23
+        "trainNo": "66596",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "09:04",
+        "expectedDepartureTime": "2026-07-22T09:04:00+05:30",
+        "scheduledArrivalTime": "09:03",
+        "expectedArrivalTime": "2026-07-22T09:03:00+05:30",
+        "source": "HSRA",
+        "destination": "YPR",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-07-22T09:23:00+05:30",
+        "scheduledArrivalTime": "09:07",
+        "expectedArrivalTime": "2026-07-22T09:22:00+05:30",
+        "source": "SA",
+        "destination": "YPR",
+        "delayMinutes": 15
+      },
+      {
+        "trainNo": "66563",
+        "trainName": "Yesvantpur- Hosur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "11:26",
+        "expectedDepartureTime": "2026-07-22T11:26:00+05:30",
+        "scheduledArrivalTime": "11:25",
+        "expectedArrivalTime": "2026-07-22T11:25:00+05:30",
+        "source": "YPR",
+        "destination": "HSRA",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-21T14:01:13Z"
+    "fetchedAt": "2026-07-22T02:31:10Z"
   },
-  "generatedAt": "2026-07-21T14:01:13Z"
+  "generatedAt": "2026-07-22T02:31:10Z"
 }
