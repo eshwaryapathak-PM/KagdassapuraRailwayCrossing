@@ -13,36 +13,36 @@
         "source": "SBC",
         "destination": "DPJ",
         "delayMinutes": 0
+      },
+      {
+        "trainNo": "16530",
+        "trainName": "SMVT Bengaluru Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "19:40",
+        "expectedDepartureTime": "2026-07-22T19:43:00+05:30",
+        "scheduledArrivalTime": "19:39",
+        "expectedArrivalTime": "2026-07-22T19:42:00+05:30",
+        "source": "KIK",
+        "destination": "SMVB",
+        "delayMinutes": 3
       }
     ],
-    "fetchedAt": "2026-07-22T10:01:11Z"
+    "fetchedAt": "2026-07-22T10:31:11Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "66585",
-        "trainName": "Yesvantpur- Hosur MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "15:43",
-        "expectedDepartureTime": "2026-07-22T15:51:00+05:30",
-        "scheduledArrivalTime": "15:42",
-        "expectedArrivalTime": "2026-07-22T15:50:00+05:30",
-        "source": "YPR",
-        "destination": "HSRA",
-        "delayMinutes": 8
-      },
-      {
         "trainNo": "66564",
         "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "not-started",
+        "status": "upcoming",
         "scheduledDepartureTime": "16:01",
-        "expectedDepartureTime": "2026-07-22T16:09:00+05:30",
+        "expectedDepartureTime": "2026-07-22T16:16:00+05:30",
         "scheduledArrivalTime": "16:00",
-        "expectedArrivalTime": "2026-07-22T16:08:00+05:30",
+        "expectedArrivalTime": "2026-07-22T16:15:00+05:30",
         "source": "HSRA",
         "destination": "YPR",
-        "delayMinutes": 8
+        "delayMinutes": 15
       },
       {
         "trainNo": "16211",
@@ -85,15 +85,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-22T19:00:00+05:30",
+        "expectedDepartureTime": "2026-07-22T19:03:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-22T18:59:00+05:30",
+        "expectedArrivalTime": "2026-07-22T19:02:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 0
+        "delayMinutes": 3
       }
     ],
-    "fetchedAt": "2026-07-22T10:01:11Z"
+    "fetchedAt": "2026-07-22T10:31:11Z"
   },
-  "generatedAt": "2026-07-22T10:01:11Z"
+  "generatedAt": "2026-07-22T10:31:11Z"
 }
