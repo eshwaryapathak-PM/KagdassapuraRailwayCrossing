@@ -3,61 +3,73 @@
     "stationCode": "BYPL",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
+        "trainNo": "66584",
+        "trainName": "Dharmapuri - KSR Bengaluru MEMU",
         "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-22T20:09:00+05:30",
-        "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-22T20:08:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 29
-      },
-      {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "departed",
-        "scheduledDepartureTime": "18:45",
-        "expectedDepartureTime": "2026-07-22T19:20:00+05:30",
-        "scheduledArrivalTime": "18:44",
-        "expectedArrivalTime": "2026-07-22T19:19:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 35
+        "scheduledDepartureTime": "07:19",
+        "expectedDepartureTime": "2026-07-23T08:02:00+05:30",
+        "scheduledArrivalTime": "07:18",
+        "expectedArrivalTime": "2026-07-23T08:01:00+05:30",
+        "source": "DPJ",
+        "destination": "SBC",
+        "delayMinutes": 43
       }
     ],
-    "fetchedAt": "2026-07-22T14:01:16Z"
+    "fetchedAt": "2026-07-23T02:31:11Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "at-station",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-22T19:29:00+05:30",
-        "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-22T19:28:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 29
+        "trainNo": "66596",
+        "trainName": "Hosur - Yesvantpur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "09:04",
+        "expectedDepartureTime": "2026-07-23T09:04:00+05:30",
+        "scheduledArrivalTime": "09:03",
+        "expectedArrivalTime": "2026-07-23T09:03:00+05:30",
+        "source": "HSRA",
+        "destination": "YPR",
+        "delayMinutes": 0
       },
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "at-station",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-22T19:30:00+05:30",
-        "scheduledArrivalTime": "18:54",
-        "expectedArrivalTime": "2026-07-22T19:29:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 35
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-07-23T09:22:00+05:30",
+        "scheduledArrivalTime": "09:07",
+        "expectedArrivalTime": "2026-07-23T09:21:00+05:30",
+        "source": "SA",
+        "destination": "YPR",
+        "delayMinutes": 14
+      },
+      {
+        "trainNo": "66563",
+        "trainName": "Yesvantpur- Hosur MEMU",
+        "status": "not-started",
+        "scheduledDepartureTime": "11:26",
+        "expectedDepartureTime": "2026-07-23T11:26:00+05:30",
+        "scheduledArrivalTime": "11:25",
+        "expectedArrivalTime": "2026-07-23T11:25:00+05:30",
+        "source": "YPR",
+        "destination": "HSRA",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "66584",
+        "trainName": "Dharmapuri - KSR Bengaluru MEMU",
+        "status": "departed",
+        "scheduledDepartureTime": "07:07",
+        "expectedDepartureTime": "2026-07-23T07:50:00+05:30",
+        "scheduledArrivalTime": "07:06",
+        "expectedArrivalTime": "2026-07-23T07:49:00+05:30",
+        "source": "DPJ",
+        "destination": "SBC",
+        "delayMinutes": 43
       }
     ],
-    "fetchedAt": "2026-07-22T14:01:16Z"
+    "fetchedAt": "2026-07-23T02:31:11Z"
   },
-  "generatedAt": "2026-07-22T14:01:16Z"
+  "generatedAt": "2026-07-23T02:31:11Z"
 }
