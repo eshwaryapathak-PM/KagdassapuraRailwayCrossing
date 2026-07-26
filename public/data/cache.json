@@ -19,15 +19,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-26T19:44:00+05:30",
+        "expectedDepartureTime": "2026-07-26T19:49:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-26T19:43:00+05:30",
+        "expectedArrivalTime": "2026-07-26T19:48:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 4
+        "delayMinutes": 9
       }
     ],
-    "fetchedAt": "2026-07-26T10:30:23Z"
+    "fetchedAt": "2026-07-26T11:00:22Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -35,14 +35,14 @@
       {
         "trainNo": "16211",
         "trainName": "Salem Express",
-        "status": "not-started",
+        "status": "upcoming",
         "scheduledDepartureTime": "16:36",
-        "expectedDepartureTime": "2026-07-26T16:36:00+05:30",
+        "expectedDepartureTime": "2026-07-26T16:46:00+05:30",
         "scheduledArrivalTime": "16:35",
-        "expectedArrivalTime": "2026-07-26T16:35:00+05:30",
+        "expectedArrivalTime": "2026-07-26T16:45:00+05:30",
         "source": "YPR",
         "destination": "SA",
-        "delayMinutes": 0
+        "delayMinutes": 10
       },
       {
         "trainNo": "66583",
@@ -61,15 +61,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-26T19:04:00+05:30",
+        "expectedDepartureTime": "2026-07-26T19:09:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-26T19:03:00+05:30",
+        "expectedArrivalTime": "2026-07-26T19:08:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 4
+        "delayMinutes": 9
       }
     ],
-    "fetchedAt": "2026-07-26T10:30:23Z"
+    "fetchedAt": "2026-07-26T11:00:22Z"
   },
-  "generatedAt": "2026-07-26T10:30:23Z"
+  "generatedAt": "2026-07-26T11:00:22Z"
 }
