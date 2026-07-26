@@ -2,12 +2,12 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-26T05:00:23Z"
+    "fetchedAt": "2026-07-26T05:30:19Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [],
-    "fetchedAt": "2026-07-26T05:00:23Z"
+    "fetchedAt": "2026-07-26T05:30:19Z"
   },
-  "generatedAt": "2026-07-26T05:00:23Z"
+  "generatedAt": "2026-07-26T05:30:19Z"
 }
