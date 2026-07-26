@@ -1,39 +1,38 @@
 {
   "stationA": {
     "stationCode": "BYPL",
-    "trains": [
-      {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-25T20:33:00+05:30",
-        "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-25T20:32:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 53
-      }
-    ],
-    "fetchedAt": "2026-07-25T14:00:20Z"
+    "trains": [],
+    "fetchedAt": "2026-07-26T02:19:16Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-25T19:53:00+05:30",
-        "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-25T19:52:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 53
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
+        "status": "not-started",
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-07-26T09:08:00+05:30",
+        "scheduledArrivalTime": "09:07",
+        "expectedArrivalTime": "2026-07-26T09:07:00+05:30",
+        "source": "SA",
+        "destination": "YPR",
+        "delayMinutes": 0
+      },
+      {
+        "trainNo": "16529",
+        "trainName": "Karaikal Express",
+        "status": "scheduled",
+        "scheduledDepartureTime": "07:49",
+        "expectedDepartureTime": "2026-07-26T07:49:00+05:30",
+        "scheduledArrivalTime": "07:48",
+        "expectedArrivalTime": "2026-07-26T07:48:00+05:30",
+        "source": "SMVB",
+        "destination": "KIK",
+        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-25T14:00:20Z"
+    "fetchedAt": "2026-07-26T02:19:16Z"
   },
-  "generatedAt": "2026-07-25T14:00:20Z"
+  "generatedAt": "2026-07-26T02:19:16Z"
 }
