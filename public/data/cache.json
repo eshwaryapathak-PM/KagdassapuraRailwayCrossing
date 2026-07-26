@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-26T02:19:16Z"
+    "fetchedAt": "2026-07-26T02:30:20Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -18,21 +18,9 @@
         "source": "SA",
         "destination": "YPR",
         "delayMinutes": 0
-      },
-      {
-        "trainNo": "16529",
-        "trainName": "Karaikal Express",
-        "status": "scheduled",
-        "scheduledDepartureTime": "07:49",
-        "expectedDepartureTime": "2026-07-26T07:49:00+05:30",
-        "scheduledArrivalTime": "07:48",
-        "expectedArrivalTime": "2026-07-26T07:48:00+05:30",
-        "source": "SMVB",
-        "destination": "KIK",
-        "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-26T02:19:16Z"
+    "fetchedAt": "2026-07-26T02:30:20Z"
   },
-  "generatedAt": "2026-07-26T02:19:16Z"
+  "generatedAt": "2026-07-26T02:30:20Z"
 }
