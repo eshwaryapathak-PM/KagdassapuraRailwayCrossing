@@ -19,15 +19,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-26T20:00:00+05:30",
+        "expectedDepartureTime": "2026-07-26T19:58:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-26T19:59:00+05:30",
+        "expectedArrivalTime": "2026-07-26T19:57:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 20
+        "delayMinutes": 18
       }
     ],
-    "fetchedAt": "2026-07-26T12:00:22Z"
+    "fetchedAt": "2026-07-26T12:30:28Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -49,15 +49,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-26T19:20:00+05:30",
+        "expectedDepartureTime": "2026-07-26T19:18:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-26T19:19:00+05:30",
+        "expectedArrivalTime": "2026-07-26T19:17:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 20
+        "delayMinutes": 18
       }
     ],
-    "fetchedAt": "2026-07-26T12:00:22Z"
+    "fetchedAt": "2026-07-26T12:30:28Z"
   },
-  "generatedAt": "2026-07-26T12:00:22Z"
+  "generatedAt": "2026-07-26T12:30:28Z"
 }
