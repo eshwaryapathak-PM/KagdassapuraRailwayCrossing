@@ -3,73 +3,49 @@
     "stationCode": "BYPL",
     "trains": [
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "at-station",
-        "scheduledDepartureTime": "18:45",
-        "expectedDepartureTime": "2026-07-27T19:00:00+05:30",
-        "scheduledArrivalTime": "18:44",
-        "expectedArrivalTime": "2026-07-27T18:59:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 15
-      },
-      {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-27T20:16:00+05:30",
+        "expectedDepartureTime": "2026-07-27T20:12:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-27T20:15:00+05:30",
+        "expectedArrivalTime": "2026-07-27T20:11:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 36
+        "delayMinutes": 32
       }
     ],
-    "fetchedAt": "2026-07-27T13:30:35Z"
+    "fetchedAt": "2026-07-27T14:00:37Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-07-27T19:10:00+05:30",
-        "scheduledArrivalTime": "18:54",
-        "expectedArrivalTime": "2026-07-27T19:09:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 15
-      },
-      {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-27T19:36:00+05:30",
+        "expectedDepartureTime": "2026-07-27T19:32:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-27T19:35:00+05:30",
+        "expectedArrivalTime": "2026-07-27T19:31:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 36
+        "delayMinutes": 32
       },
       {
-        "trainNo": "66586",
-        "trainName": "Hosur - Yesvantpur MEMU",
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
         "status": "departed",
-        "scheduledDepartureTime": "18:19",
-        "expectedDepartureTime": "2026-07-27T18:47:00+05:30",
-        "scheduledArrivalTime": "18:18",
-        "expectedArrivalTime": "2026-07-27T18:46:00+05:30",
-        "source": "HSRA",
-        "destination": "YPR",
-        "delayMinutes": 28
+        "scheduledDepartureTime": "18:55",
+        "expectedDepartureTime": "2026-07-27T19:20:00+05:30",
+        "scheduledArrivalTime": "18:54",
+        "expectedArrivalTime": "2026-07-27T19:19:00+05:30",
+        "source": "SBC",
+        "destination": "DPJ",
+        "delayMinutes": 25
       }
     ],
-    "fetchedAt": "2026-07-27T13:30:35Z"
+    "fetchedAt": "2026-07-27T14:00:37Z"
   },
-  "generatedAt": "2026-07-27T13:30:35Z"
+  "generatedAt": "2026-07-27T14:00:37Z"
 }
