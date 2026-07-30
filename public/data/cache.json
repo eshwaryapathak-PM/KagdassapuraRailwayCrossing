@@ -19,15 +19,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-07-30T19:47:00+05:30",
+        "expectedDepartureTime": "2026-07-30T19:49:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-07-30T19:46:00+05:30",
+        "expectedArrivalTime": "2026-07-30T19:48:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 7
+        "delayMinutes": 9
       }
     ],
-    "fetchedAt": "2026-07-30T12:30:39Z"
+    "fetchedAt": "2026-07-30T13:00:27Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -35,14 +35,14 @@
       {
         "trainNo": "66586",
         "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "not-started",
+        "status": "upcoming",
         "scheduledDepartureTime": "18:19",
-        "expectedDepartureTime": "2026-07-30T18:26:00+05:30",
+        "expectedDepartureTime": "2026-07-30T18:38:00+05:30",
         "scheduledArrivalTime": "18:18",
-        "expectedArrivalTime": "2026-07-30T18:25:00+05:30",
+        "expectedArrivalTime": "2026-07-30T18:37:00+05:30",
         "source": "HSRA",
         "destination": "YPR",
-        "delayMinutes": 7
+        "delayMinutes": 19
       },
       {
         "trainNo": "66583",
@@ -61,15 +61,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-07-30T19:07:00+05:30",
+        "expectedDepartureTime": "2026-07-30T19:09:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-07-30T19:06:00+05:30",
+        "expectedArrivalTime": "2026-07-30T19:08:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 7
+        "delayMinutes": 9
       }
     ],
-    "fetchedAt": "2026-07-30T12:30:39Z"
+    "fetchedAt": "2026-07-30T13:00:27Z"
   },
-  "generatedAt": "2026-07-30T12:30:39Z"
+  "generatedAt": "2026-07-30T13:00:27Z"
 }
