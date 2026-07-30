@@ -2,23 +2,11 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-07-30T02:30:26Z"
+    "fetchedAt": "2026-07-30T03:00:27Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
-      {
-        "trainNo": "16529",
-        "trainName": "Karaikal Express",
-        "status": "not-started",
-        "scheduledDepartureTime": "07:49",
-        "expectedDepartureTime": "2026-07-30T07:57:00+05:30",
-        "scheduledArrivalTime": "07:48",
-        "expectedArrivalTime": "2026-07-30T07:56:00+05:30",
-        "source": "SMVB",
-        "destination": "KIK",
-        "delayMinutes": 8
-      },
       {
         "trainNo": "66596",
         "trainName": "Hosur - Yesvantpur MEMU",
@@ -36,12 +24,12 @@
         "trainName": "Yesvantpur Express",
         "status": "upcoming",
         "scheduledDepartureTime": "09:08",
-        "expectedDepartureTime": "2026-07-30T09:31:00+05:30",
+        "expectedDepartureTime": "2026-07-30T09:59:00+05:30",
         "scheduledArrivalTime": "09:07",
-        "expectedArrivalTime": "2026-07-30T09:30:00+05:30",
+        "expectedArrivalTime": "2026-07-30T09:58:00+05:30",
         "source": "SA",
         "destination": "YPR",
-        "delayMinutes": 23
+        "delayMinutes": 51
       },
       {
         "trainNo": "66563",
@@ -56,7 +44,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-07-30T02:30:26Z"
+    "fetchedAt": "2026-07-30T03:00:27Z"
   },
-  "generatedAt": "2026-07-30T02:30:26Z"
+  "generatedAt": "2026-07-30T03:00:27Z"
 }
