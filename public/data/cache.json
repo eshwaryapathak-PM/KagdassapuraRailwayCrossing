@@ -5,17 +5,17 @@
       {
         "trainNo": "66584",
         "trainName": "Dharmapuri - KSR Bengaluru MEMU",
-        "status": "upcoming",
+        "status": "departed",
         "scheduledDepartureTime": "07:19",
-        "expectedDepartureTime": "2026-10-08T08:06:00+05:30",
+        "expectedDepartureTime": "2026-10-08T08:17:00+05:30",
         "scheduledArrivalTime": "07:18",
-        "expectedArrivalTime": "2026-10-08T08:05:00+05:30",
+        "expectedArrivalTime": "2026-10-08T08:16:00+05:30",
         "source": "DPJ",
         "destination": "SBC",
-        "delayMinutes": 47
+        "delayMinutes": 58
       }
     ],
-    "fetchedAt": "2026-10-08T02:31:04Z"
+    "fetchedAt": "2026-10-08T03:01:01Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -25,24 +25,24 @@
         "trainName": "Hosur - Yesvantpur MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "09:04",
-        "expectedDepartureTime": "2026-10-08T09:04:00+05:30",
+        "expectedDepartureTime": "2026-10-08T09:08:00+05:30",
         "scheduledArrivalTime": "09:03",
-        "expectedArrivalTime": "2026-10-08T09:03:00+05:30",
+        "expectedArrivalTime": "2026-10-08T09:07:00+05:30",
         "source": "HSRA",
         "destination": "YPR",
-        "delayMinutes": 0
+        "delayMinutes": 4
       },
       {
         "trainNo": "16212",
         "trainName": "Yesvantpur Express",
         "status": "upcoming",
         "scheduledDepartureTime": "09:08",
-        "expectedDepartureTime": "2026-10-08T09:31:00+05:30",
+        "expectedDepartureTime": "2026-10-08T09:55:00+05:30",
         "scheduledArrivalTime": "09:07",
-        "expectedArrivalTime": "2026-10-08T09:30:00+05:30",
+        "expectedArrivalTime": "2026-10-08T09:54:00+05:30",
         "source": "SA",
         "destination": "YPR",
-        "delayMinutes": 23
+        "delayMinutes": 47
       },
       {
         "trainNo": "66563",
@@ -57,7 +57,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-10-08T02:31:04Z"
+    "fetchedAt": "2026-10-08T03:01:01Z"
   },
-  "generatedAt": "2026-10-08T02:31:04Z"
+  "generatedAt": "2026-10-08T03:01:01Z"
 }
