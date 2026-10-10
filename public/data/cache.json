@@ -2,7 +2,7 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-10-10T02:31:03Z"
+    "fetchedAt": "2026-10-10T03:01:14Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -12,24 +12,24 @@
         "trainName": "Hosur - Yesvantpur MEMU",
         "status": "not-started",
         "scheduledDepartureTime": "09:04",
-        "expectedDepartureTime": "2026-10-10T09:04:00+05:30",
+        "expectedDepartureTime": "2026-10-10T09:07:00+05:30",
         "scheduledArrivalTime": "09:03",
-        "expectedArrivalTime": "2026-10-10T09:03:00+05:30",
+        "expectedArrivalTime": "2026-10-10T09:06:00+05:30",
         "source": "HSRA",
         "destination": "YPR",
-        "delayMinutes": 0
+        "delayMinutes": 3
       },
       {
         "trainNo": "16212",
         "trainName": "Yesvantpur Express",
         "status": "upcoming",
         "scheduledDepartureTime": "09:08",
-        "expectedDepartureTime": "2026-10-10T09:35:00+05:30",
+        "expectedDepartureTime": "2026-10-10T09:32:00+05:30",
         "scheduledArrivalTime": "09:07",
-        "expectedArrivalTime": "2026-10-10T09:34:00+05:30",
+        "expectedArrivalTime": "2026-10-10T09:31:00+05:30",
         "source": "SA",
         "destination": "YPR",
-        "delayMinutes": 27
+        "delayMinutes": 24
       },
       {
         "trainNo": "66563",
@@ -42,9 +42,21 @@
         "source": "YPR",
         "destination": "HSRA",
         "delayMinutes": 0
+      },
+      {
+        "trainNo": "16529",
+        "trainName": "Karaikal Express",
+        "status": "departed",
+        "scheduledDepartureTime": "07:49",
+        "expectedDepartureTime": "2026-10-10T08:18:00+05:30",
+        "scheduledArrivalTime": "07:48",
+        "expectedArrivalTime": "2026-10-10T08:17:00+05:30",
+        "source": "SMVB",
+        "destination": "KIK",
+        "delayMinutes": 29
       }
     ],
-    "fetchedAt": "2026-10-10T02:31:03Z"
+    "fetchedAt": "2026-10-10T03:01:14Z"
   },
-  "generatedAt": "2026-10-10T02:31:03Z"
+  "generatedAt": "2026-10-10T03:01:14Z"
 }
