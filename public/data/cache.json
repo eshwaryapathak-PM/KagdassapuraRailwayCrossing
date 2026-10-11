@@ -3,49 +3,37 @@
     "stationCode": "BYPL",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
-        "status": "upcoming",
-        "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-10-10T21:19:00+05:30",
-        "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-10-10T21:18:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 99
+        "trainNo": "66584",
+        "trainName": "Dharmapuri - KSR Bengaluru MEMU",
+        "status": "departed",
+        "scheduledDepartureTime": "07:19",
+        "expectedDepartureTime": "2026-10-11T07:48:00+05:30",
+        "scheduledArrivalTime": "07:18",
+        "expectedArrivalTime": "2026-10-11T07:47:00+05:30",
+        "source": "DPJ",
+        "destination": "SBC",
+        "delayMinutes": 29
       }
     ],
-    "fetchedAt": "2026-10-10T14:01:03Z"
+    "fetchedAt": "2026-10-11T02:31:07Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "16530",
-        "trainName": "SMVT Bengaluru Express",
+        "trainNo": "16212",
+        "trainName": "Yesvantpur Express",
         "status": "upcoming",
-        "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-10-10T20:39:00+05:30",
-        "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-10-10T20:38:00+05:30",
-        "source": "KIK",
-        "destination": "SMVB",
-        "delayMinutes": 99
-      },
-      {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "departed",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-10-10T19:22:00+05:30",
-        "scheduledArrivalTime": "18:54",
-        "expectedArrivalTime": "2026-10-10T19:21:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 27
+        "scheduledDepartureTime": "09:08",
+        "expectedDepartureTime": "2026-10-11T09:28:00+05:30",
+        "scheduledArrivalTime": "09:07",
+        "expectedArrivalTime": "2026-10-11T09:27:00+05:30",
+        "source": "SA",
+        "destination": "YPR",
+        "delayMinutes": 20
       }
     ],
-    "fetchedAt": "2026-10-10T14:01:03Z"
+    "fetchedAt": "2026-10-11T02:31:07Z"
   },
-  "generatedAt": "2026-10-10T14:01:03Z"
+  "generatedAt": "2026-10-11T02:31:07Z"
 }
