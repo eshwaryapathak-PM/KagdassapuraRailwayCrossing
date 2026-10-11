@@ -27,11 +27,23 @@
         "delayMinutes": 15
       }
     ],
-    "fetchedAt": "2026-10-11T12:01:04Z"
+    "fetchedAt": "2026-10-11T12:31:07Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
+      {
+        "trainNo": "16211",
+        "trainName": "Salem Express",
+        "status": "upcoming",
+        "scheduledDepartureTime": "16:36",
+        "expectedDepartureTime": "2026-10-11T18:06:00+05:30",
+        "scheduledArrivalTime": "16:36",
+        "expectedArrivalTime": "2026-10-11T18:06:00+05:30",
+        "source": "YPR",
+        "destination": "SA",
+        "delayMinutes": 90
+      },
       {
         "trainNo": "66583",
         "trainName": "KSR Bengaluru - Dharmapuri MEMU",
@@ -57,7 +69,7 @@
         "delayMinutes": 15
       }
     ],
-    "fetchedAt": "2026-10-11T12:01:04Z"
+    "fetchedAt": "2026-10-11T12:31:07Z"
   },
-  "generatedAt": "2026-10-11T12:01:04Z"
+  "generatedAt": "2026-10-11T12:31:07Z"
 }
