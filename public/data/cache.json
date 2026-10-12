@@ -2,23 +2,11 @@
   "stationA": {
     "stationCode": "BYPL",
     "trains": [],
-    "fetchedAt": "2026-10-12T03:31:03Z"
+    "fetchedAt": "2026-10-12T04:01:01Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
-      {
-        "trainNo": "66596",
-        "trainName": "Hosur - Yesvantpur MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "09:04",
-        "expectedDepartureTime": "2026-10-12T09:10:00+05:30",
-        "scheduledArrivalTime": "09:03",
-        "expectedArrivalTime": "2026-10-12T09:09:00+05:30",
-        "source": "HSRA",
-        "destination": "YPR",
-        "delayMinutes": 6
-      },
       {
         "trainNo": "16212",
         "trainName": "Yesvantpur Express",
@@ -44,7 +32,7 @@
         "delayMinutes": 0
       }
     ],
-    "fetchedAt": "2026-10-12T03:31:03Z"
+    "fetchedAt": "2026-10-12T04:01:01Z"
   },
-  "generatedAt": "2026-10-12T03:31:03Z"
+  "generatedAt": "2026-10-12T04:01:01Z"
 }
