@@ -19,15 +19,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-10-12T19:53:00+05:30",
+        "expectedDepartureTime": "2026-10-12T19:48:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-10-12T19:52:00+05:30",
+        "expectedArrivalTime": "2026-10-12T19:47:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 13
+        "delayMinutes": 8
       }
     ],
-    "fetchedAt": "2026-10-12T11:31:06Z"
+    "fetchedAt": "2026-10-12T12:01:08Z"
   },
   "stationB": {
     "stationCode": "BLRR",
@@ -61,27 +61,15 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-10-12T19:13:00+05:30",
+        "expectedDepartureTime": "2026-10-12T19:08:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-10-12T19:12:00+05:30",
+        "expectedArrivalTime": "2026-10-12T19:07:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 13
-      },
-      {
-        "trainNo": "16211",
-        "trainName": "Salem Express",
-        "status": "departed",
-        "scheduledDepartureTime": "16:36",
-        "expectedDepartureTime": "2026-10-12T16:53:00+05:30",
-        "scheduledArrivalTime": "16:36",
-        "expectedArrivalTime": "2026-10-12T16:53:00+05:30",
-        "source": "YPR",
-        "destination": "SA",
-        "delayMinutes": 17
+        "delayMinutes": 8
       }
     ],
-    "fetchedAt": "2026-10-12T11:31:06Z"
+    "fetchedAt": "2026-10-12T12:01:08Z"
   },
-  "generatedAt": "2026-10-12T11:31:06Z"
+  "generatedAt": "2026-10-12T12:01:08Z"
 }
