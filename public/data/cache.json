@@ -7,45 +7,45 @@
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:40",
-        "expectedDepartureTime": "2026-10-12T20:49:00+05:30",
+        "expectedDepartureTime": "2026-10-12T21:05:00+05:30",
         "scheduledArrivalTime": "19:39",
-        "expectedArrivalTime": "2026-10-12T20:48:00+05:30",
+        "expectedArrivalTime": "2026-10-12T21:04:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 69
+        "delayMinutes": 85
       }
     ],
-    "fetchedAt": "2026-10-12T13:31:05Z"
+    "fetchedAt": "2026-10-12T14:01:20Z"
   },
   "stationB": {
     "stationCode": "BLRR",
     "trains": [
       {
-        "trainNo": "66583",
-        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
-        "status": "upcoming",
-        "scheduledDepartureTime": "18:55",
-        "expectedDepartureTime": "2026-10-12T19:04:00+05:30",
-        "scheduledArrivalTime": "18:54",
-        "expectedArrivalTime": "2026-10-12T19:03:00+05:30",
-        "source": "SBC",
-        "destination": "DPJ",
-        "delayMinutes": 9
-      },
-      {
         "trainNo": "16530",
         "trainName": "SMVT Bengaluru Express",
         "status": "upcoming",
         "scheduledDepartureTime": "19:00",
-        "expectedDepartureTime": "2026-10-12T20:09:00+05:30",
+        "expectedDepartureTime": "2026-10-12T20:25:00+05:30",
         "scheduledArrivalTime": "18:59",
-        "expectedArrivalTime": "2026-10-12T20:08:00+05:30",
+        "expectedArrivalTime": "2026-10-12T20:24:00+05:30",
         "source": "KIK",
         "destination": "SMVB",
-        "delayMinutes": 69
+        "delayMinutes": 85
+      },
+      {
+        "trainNo": "66583",
+        "trainName": "KSR Bengaluru - Dharmapuri MEMU",
+        "status": "departed",
+        "scheduledDepartureTime": "18:55",
+        "expectedDepartureTime": "2026-10-12T19:21:00+05:30",
+        "scheduledArrivalTime": "18:54",
+        "expectedArrivalTime": "2026-10-12T19:20:00+05:30",
+        "source": "SBC",
+        "destination": "DPJ",
+        "delayMinutes": 26
       }
     ],
-    "fetchedAt": "2026-10-12T13:31:05Z"
+    "fetchedAt": "2026-10-12T14:01:20Z"
   },
-  "generatedAt": "2026-10-12T13:31:05Z"
+  "generatedAt": "2026-10-12T14:01:20Z"
 }
